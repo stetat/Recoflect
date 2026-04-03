@@ -6,14 +6,14 @@
   border: 1px solid black;
 }
 
-.record-box {
+.goal-box {
   display: flex;
   flex-direction: column;
   margin: -20px 10px;
   overflow-x: hidden;
 }
 
-.record-box p {
+.goal-box p {
   font-size: 28px;
 }
 
@@ -30,14 +30,14 @@
   align-items: center;
 }
 
-.all-records-btn {
+.all-goals-btn {
   padding: 4px;
   border-radius: 6.7px !important;
   background-color: #0f5ad1;
   color: #f1f5f9;
 }
 
-.all-records-btn:hover {
+.all-goals-btn:hover {
   background-color: #145fcc;
   transition: 0.3s ease;
 }
@@ -49,28 +49,38 @@
   margin: 4px 10px;
   align-items: center;
   gap: 15px;
-
 }
 
-.date {
-  font-size: 16px;
-  margin-bottom: 5px;
+
+.limit-bar {
+  height: 25px;
+  width: 220px;
+  border: 1px solid black;
+  border-radius: 15px;
+  margin-top: 7px;
+  overflow: hidden;
+  background-color: #f1f5f9;
 }
 
-.conclusion {
-  display: flex;
+.filler {
+  height: 100%;
+  background-color: #0f5ad1;
 }
 
-.net {
+.goal-title {
+  margin-top: 18px;
+}
 
+.goal-stat {
+  margin-top: 7px;
+}
+.stat {
   background-color: #0f5ad1;
   padding: 4px;
   border-radius: 6.7px;
   color: #f1f5f9;
   font-size: 22px;
 }
-
-
 
 
 

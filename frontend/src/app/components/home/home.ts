@@ -2,13 +2,15 @@ import {Component, signal} from '@angular/core';
 import {Navigation} from '../navigation/navigation';
 import {HomeLimit} from '../home-limit/home-limit';
 import {HomeRecords} from '../home-records/home-records';
+import {HomeGoal} from '../home-goal/home-goal';
 
 @Component({
   selector: 'app-home',
   imports: [
     Navigation,
     HomeLimit,
-    HomeRecords
+    HomeRecords,
+    HomeGoal
   ],
   templateUrl: './home.html',
   styleUrl: './home.css',

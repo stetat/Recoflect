@@ -1,0 +1,30 @@
+<div class="main-box">
+  <div class="goal-box">
+    <div class="header">
+      <p>Goal</p>
+      <a href="#">
+        <div class="all-goals-btn">
+          all goals
+        </div>
+      </a>
+    </div>
+  </div>
+  <div class="hr-line"></div>
+  <div class="data-box">
+    <div class="initials">
+      <div class="limit-bar">
+        <div class="filler" [style.width.%]="goalReach()"></div>
+      </div>
+      <div class="goal-title">
+        {{goalTitle()}}
+      </div>
+    </div>
+    <div class="goal-stat">
+      <div class="stat">
+        {{currentBalance()}} / <br>
+        {{goalBalance()}}
+      </div>
+    </div>
+  </div>
+
+</div>
