@@ -1,0 +1,11 @@
+<div class="main-box">
+    <a>
+      <div class="cta-btn" (click)="toggleAddRecordPage()">
+        Add record
+      </div>
+    </a>
+</div>
+
+@if(showAddRecordPage()) {
+  <app-add-record-page [(showAddRecordPage)]="showAddRecordPage"></app-add-record-page>
+}

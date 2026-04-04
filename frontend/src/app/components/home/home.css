@@ -29,3 +29,10 @@
   column-gap: 100px;
 
 }
+
+.btn {
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+  gap: 43px;
+}

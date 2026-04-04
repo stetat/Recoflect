@@ -3,6 +3,8 @@ import {Navigation} from '../navigation/navigation';
 import {HomeLimit} from '../home-limit/home-limit';
 import {HomeRecords} from '../home-records/home-records';
 import {HomeGoal} from '../home-goal/home-goal';
+import {AddGoalBtn} from '../add-goal-btn/add-goal-btn';
+import {AddRecordBtn} from '../add-record-btn/add-record-btn';
 
 @Component({
   selector: 'app-home',
@@ -10,7 +12,9 @@ import {HomeGoal} from '../home-goal/home-goal';
     Navigation,
     HomeLimit,
     HomeRecords,
-    HomeGoal
+    HomeGoal,
+    AddGoalBtn,
+    AddRecordBtn
   ],
   templateUrl: './home.html',
   styleUrl: './home.css',

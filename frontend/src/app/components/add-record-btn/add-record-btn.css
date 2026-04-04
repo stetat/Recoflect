@@ -1,0 +1,23 @@
+.main-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.cta-btn:hover {
+  cursor: pointer;
+  background-color: #4c8ffa;
+  transition: 0.3s ease;
+}
+
+
+
+.cta-btn {
+  justify-self: flex-end;
+  background-color: #3B82F6;
+  font-size: 32px;
+  padding: 10px;
+  border-radius: 6.7px !important;
+  color: #f1f5f9;
+}
+
