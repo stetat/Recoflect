@@ -24,7 +24,7 @@ enum Type {
   Expense = 'Expense',
 }
 @Component({
-  selector: 'app-add-record-page',
+  selector: 'app-add-record-form',
   imports: [
     FormsModule
   ],
@@ -34,7 +34,7 @@ enum Type {
 export class AddRecordForm {
   showAddRecordPage = model<boolean>(true);
 
-  toggleAddRecordPage() {
+  toggleAddRecordForm() {
     this.showAddRecordPage.set(!this.showAddRecordPage());
   }
 
