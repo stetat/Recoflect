@@ -1,5 +1,9 @@
 <div class="main-box">
-  <div class="cta-btn">
+  <div class="cta-btn" (click)="toggleAddGoalForm()">
     Add goal
   </div>
 </div>
+
+@if(showAddGoalForm()) {
+  <app-add-goal-form [(showAddGoalForm)]="showAddGoalForm"></app-add-goal-form>
+}

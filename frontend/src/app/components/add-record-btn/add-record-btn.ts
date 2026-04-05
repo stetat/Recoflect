@@ -1,5 +1,5 @@
 import {Component, signal} from '@angular/core';
-import {AddRecordForm} from '../add-record-page/add-record-form';
+import {AddRecordForm} from '../add-record-form/add-record-form';
 
 @Component({
   selector: 'app-add-record-btn',
@@ -10,9 +10,8 @@ import {AddRecordForm} from '../add-record-page/add-record-form';
   styleUrl: './add-record-btn.css',
 })
 export class AddRecordBtn {
-  showAddRecordPage = signal<boolean>(true);
+  showAddRecordForm = signal<boolean>(true);
 
-  toggleAddRecordPage() {
-    this.showAddRecordPage.set(!this.showAddRecordPage());
-  }
+  toggleAddRecordForm = () => this.showAddRecordForm.set(!this.showAddRecordForm());
+
 }

@@ -1,0 +1,64 @@
+<div class="modal-overlay">
+  <div class="modal-box">
+    <div class="cancel-btn" (click)="toggleAddGoalForm()">
+      x
+    </div>
+
+    <div class="title">
+      Add goal
+    </div>
+    <div class="hr-line"></div>
+    <div class="form-box">
+      <form class="goal-form" #goalForm="ngForm" (ngSubmit)="onSubmit()">
+        <div class="form-title goal-form-item">
+          <label>
+            Title <span class="counter">({{ goal.title?.length || 0 }}/50)</span>
+            @if(title.errors?.['maxlength'] && title.touched) {
+              <span class="error-text">Too long (max: 50 characters)</span>
+            } @else if(title.invalid && title.touched) {
+              <span class="error-text">Required</span>
+            }
+
+          </label>
+          <input type="text" name="title" value="Title" maxlength="50" [(ngModel)]="goal.title" required #title="ngModel">
+        </div>
+
+        <div class="form-amount goal-form-item">
+          <label>
+            Amount
+            @if(amount.invalid && amount.touched) {
+              <span class="error-text">Required</span>
+            }
+          </label>
+          <input type="number" name="amount" [(ngModel)]="goal.amount" required #amount="ngModel">
+        </div>
+
+        <div class="form-date goal-form-item">
+          <label>
+            Deadline
+            @if(deadline.invalid && deadline.touched) {
+              <span class="error-text">Required</span>
+            }
+          </label>
+          <input type="date" name="deadline" [(ngModel)]="goal.deadline" required #deadline="ngModel">
+        </div>
+
+        <div class="form-importance goal-form-item">
+          <label>
+            Importance
+            @if(importance.invalid && importance.touched) {
+              <span class="error-text">Required</span>
+            }
+          </label>
+          <select name="reflection" [(ngModel)]="goal.importance" required #importance="ngModel">
+            @for (imp of importanceTypes; track imp) {
+              <option [value]="imp">{{ imp }}</option>
+            }
+          </select>
+        </div>
+
+        <button class="submit-btn" type="submit" [disabled]="!goalForm.valid">Save</button>
+      </form>
+    </div>
+  </div>
+</div>

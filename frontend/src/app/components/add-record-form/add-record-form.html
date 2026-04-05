@@ -1,6 +1,6 @@
 <div class="modal-overlay">
   <div class="modal-box">
-    <div class="cancel-btn" (click)="toggleAddRecordPage()">
+    <div class="cancel-btn" (click)="toggleAddRecordForm()">
       x
     </div>
 
@@ -12,7 +12,10 @@
       <form class="record-form" #recordForm="ngForm" (ngSubmit)="onSubmit()">
         <div class="form-type">
           <label>Type</label>
-          <select name="type" [(ngModel)]="record.type">
+          @if(type.invalid && type.touched) {
+            <span class="error-text">Required</span>
+          }
+          <select name="type" [(ngModel)]="record.type" #type="ngModel">
             @for (type of types; track type) {
               <option [value]="type">{{ type }}</option>
             }
@@ -21,7 +24,10 @@
 
         <div class="form-category">
           <label>Category</label>
-          <select name="category" [(ngModel)]="record.category" required>
+          @if(category.invalid && category.touched) {
+            <span class="error-text">Required</span>
+          }
+          <select name="category" [(ngModel)]="record.category" required #category="ngModel">
             @for (cat of categories; track cat) {
               <option [value]="cat">{{ cat }}</option>
             }
@@ -29,17 +35,27 @@
         </div>
 
         <div class="form-amount">
-          <label>Amount</label>
-          <input type="number" name="amount" [(ngModel)]="record.amount" required>
+          <label>
+            Amount
+            @if(amount.invalid && amount.touched) {
+              <span class="error-text">Required</span>
+            }
+          </label>
+
+          <input type="number" name="amount" [(ngModel)]="record.amount" required #amount="ngModel">
         </div>
 
         <div class="form-date">
           <label>Date</label>
-          <input type="date" name="date" [(ngModel)]="record.date">
+          @if(date.invalid && date.touched) {
+            <span class="error-text">Required</span>
+          }
+          <input type="date" name="date" [(ngModel)]="record.date" #date="ngModel">
         </div>
 
         <div class="form-reflection">
           <label>Reflection</label>
+
           <select name="reflection" [(ngModel)]="record.reflection">
             @for (ref of reflections; track ref) {
               <option [value]="ref">{{ ref }}</option>

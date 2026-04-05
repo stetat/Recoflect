@@ -17,7 +17,7 @@
   position: absolute;
   display: flex;
   flex-direction: column;
-  height: 50%;
+  height: 42%;
   width: 50%;
   padding: 20px;
   border-radius: 6.7px;
@@ -62,17 +62,16 @@
   margin-top: 25px;
 }
 
-.record-form {
+.goal-form {
   display: flex;
   flex-direction: column;
   gap: 14px;
 
 }
 
-.form-category, .form-amount, .form-date, .form-reflection, .form-type {
+.goal-form-item {
   display: flex;
   flex-direction: column;
-
 }
 
 .submit-btn {
@@ -81,5 +80,20 @@
   border: none;
   padding: 5px;
   border-radius: 6.7px;
+  cursor: pointer;
 }
+
+input.ng-invalid.ng-touched, select.ng-invalid.ng-touched {
+  border: 1px solid #d13e3e;
+}
+
+.error-text {
+  color: #d13e3e !important;
+  font-size: 14px;
+}
+
+.counter {
+  font-size: 16px;
+}
+
 

@@ -1,11 +1,11 @@
 <div class="main-box">
     <a>
-      <div class="cta-btn" (click)="toggleAddRecordPage()">
+      <div class="cta-btn" (click)="toggleAddRecordForm()">
         Add record
       </div>
     </a>
 </div>
 
-@if(showAddRecordPage()) {
-  <app-add-record-page [(showAddRecordPage)]="showAddRecordPage"></app-add-record-page>
+@if(showAddRecordForm()) {
+  <app-add-record-form [(showAddRecordPage)]="showAddRecordForm"></app-add-record-form>
 }
