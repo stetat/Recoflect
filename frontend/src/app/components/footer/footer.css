@@ -1,0 +1,35 @@
+
+.page-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 95vh;
+}
+
+.content {
+  flex: 1;
+}
+
+a {
+  color: #f1f5f9;
+  font-size: 20px;
+}
+
+a:hover {
+  color: #b8b3b3;
+}
+
+.footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 2rem;
+  height: 50px;
+  background-color: #0f172a;
+  box-sizing: border-box;
+}
+
+.main-links {
+  display: flex;
+  gap: 80px;
+
+}

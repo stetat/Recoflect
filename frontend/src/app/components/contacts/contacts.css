@@ -1,0 +1,16 @@
+.main-about-us {
+  padding: 100px;
+  font-size: 32px;
+}
+
+.paragraph {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.tg-username {
+  text-align: left;
+}
