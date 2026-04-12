@@ -32,7 +32,7 @@ enum Type {
   styleUrl: './add-record-form.css',
 })
 export class AddRecordForm {
-  showAddRecordPage = model<boolean>(true);
+  showAddRecordPage = model<boolean>(false);
 
   toggleAddRecordForm() {
     this.showAddRecordPage.set(!this.showAddRecordPage());

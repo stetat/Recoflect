@@ -12,7 +12,7 @@ import {AddGoalForm} from '../add-goal-form/add-goal-form';
   styleUrl: './add-goal.css',
 })
 export class AddGoalBtn {
-  showAddGoalForm = signal<boolean>(true);
+  showAddGoalForm = signal<boolean>(false);
 
   toggleAddGoalForm = () => this.showAddGoalForm.set(!this.showAddGoalForm());
 }

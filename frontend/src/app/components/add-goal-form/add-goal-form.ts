@@ -17,7 +17,7 @@ enum Importance {
   styleUrl: './add-goal-form.css',
 })
 export class AddGoalForm {
-  showAddGoalForm = model<boolean>(true);
+  showAddGoalForm = model<boolean>(false);
   private Objects: any;
 
   toggleAddGoalForm = () => this.showAddGoalForm.set(!this.showAddGoalForm());

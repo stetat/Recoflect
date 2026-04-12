@@ -10,7 +10,7 @@ import {AddRecordForm} from '../add-record-form/add-record-form';
   styleUrl: './add-record-btn.css',
 })
 export class AddRecordBtn {
-  showAddRecordForm = signal<boolean>(true);
+  showAddRecordForm = signal<boolean>(false);
 
   toggleAddRecordForm = () => this.showAddRecordForm.set(!this.showAddRecordForm());
 
