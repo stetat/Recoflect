@@ -1,4 +1,5 @@
 import uuid
+from time import timezone
 
 from django.contrib.auth.models import AbstractUser
 from django.db import models
@@ -6,7 +7,17 @@ from django.db import models
 from .utils import generate_family_invite_code
 
 
+class UserQuerySet(models.QuerySet):
+    def parents(self):
+        return self.filter(role=1)
+
+    def children(self):
+        return self.filter(role=2)
+
+
 class User(AbstractUser):
+    objects = UserQuerySet.as_manager()
+
     class Role(models.IntegerChoices):
         PARENT = 1, "Parent"
         CHILD = 2, "Child"
@@ -44,7 +55,26 @@ class Category(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="categories")
 
 
+class RecordQuerySet(models.QuerySet):
+    def income(self):
+        return self.filter(type=1)
+
+    def expenses(self):
+        return self.filter(type=2)
+
+    def happy(self):
+        return self.filter(reflection=1)
+
+    def neutral(self):
+        return self.filter(reflection=2)
+
+    def regret(self):
+        return self.filter(reflection=3)
+
+
 class Record(models.Model):
+    objects = RecordQuerySet.as_manager()
+
     class Type(models.IntegerChoices):
         INCOME = 1, "Income"
         EXPENSE = 2, "Expense"
@@ -60,6 +90,20 @@ class Record(models.Model):
     amount = models.DecimalField(max_digits=30, decimal_places=2)
     date = models.DateField()
     reflection = models.IntegerField(choices=Reflection, default=Reflection.NEUTRAL)
+
+
+class GoalQuerySet(models.QuerySet):
+    def major(self):
+        return self.filter(importance=1)
+
+    def normal(self):
+        return self.filter(importance=2)
+
+    def minor(self):
+        return self.filter(importance=3)
+
+    def overdue(self):
+        return self.filter(deadline__lt=timezone.now().date())
 
 
 class Goal(models.Model):
