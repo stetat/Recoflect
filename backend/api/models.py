@@ -1,7 +1,7 @@
 import uuid
 from time import timezone
 
-from django.contrib.auth.models import AbstractUser
+from django.contrib.auth.models import AbstractUser, UserManager
 from django.db import models
 
 from .utils import generate_family_invite_code
@@ -16,7 +16,7 @@ class UserQuerySet(models.QuerySet):
 
 
 class User(AbstractUser):
-    objects = UserQuerySet.as_manager()
+    objects = UserManager.from_queryset(UserQuerySet)()
 
     class Role(models.IntegerChoices):
         PARENT = 1, "Parent"
@@ -86,7 +86,9 @@ class Record(models.Model):
 
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     type = models.IntegerField(choices=Type, default=Type.EXPENSE)
-    category = models.ForeignKey(Category, related_name="records")
+    category = models.ForeignKey(
+        Category, on_delete=models.CASCADE, related_name="records"
+    )
     amount = models.DecimalField(max_digits=30, decimal_places=2)
     date = models.DateField()
     reflection = models.IntegerField(choices=Reflection, default=Reflection.NEUTRAL)
