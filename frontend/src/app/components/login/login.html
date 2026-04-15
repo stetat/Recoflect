@@ -1,0 +1,27 @@
+<div class="login-container main-font">
+  <div class="main-container">
+  <h2>Recoflect</h2>
+  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+
+    <div class="input-fields">
+      <div class="input">
+        <label for="username">Username </label>
+        <input id="username" type="text" formControlName="username">
+      </div>
+
+      <div class="input">
+        <label for="password">Password </label>
+        <input id="password" type="password" formControlName="password">
+      </div>
+    </div>
+    <button type="submit" [disabled]="loginForm.invalid">Login</button>
+
+    </form>
+
+  @if (errorMessage()) {
+    <div class="error">
+     {{ errorMessage() }}
+    </div>
+  }
+  </div>
+</div>
