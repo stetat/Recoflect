@@ -1,0 +1,32 @@
+<section class="records-page">
+  <div class="records-header">
+    <h1>My Records</h1>
+    <p>Here you can view, edit, and delete your financial records.</p>
+  </div>
+
+  <div class="records-list" *ngIf="records.length > 0; else emptyState">
+    <div class="record-card" *ngFor="let record of records">
+      <div class="record-card-top">
+        <div>
+          <h3>{{ getTypeLabel(record.type) }}</h3>
+          <span class="record-date">{{ record.date }}</span>
+        </div>
+      </div>
+
+      <p class="record-info"><strong>Category:</strong> {{ record.category }}</p>
+      <p class="record-info"><strong>Amount:</strong> {{ record.amount }}</p>
+      <p class="record-info"><strong>Reflection:</strong> {{ getReflectionLabel(record.reflection) }}</p>
+
+      <div class="record-actions">
+        <button type="button" (click)="onEdit(record)">Edit</button>
+        <button type="button" (click)="onDelete(record.id)">Delete</button>
+      </div>
+    </div>
+  </div>
+
+  <ng-template #emptyState>
+    <div class="empty-state">
+      <p>No records yet.</p>
+    </div>
+  </ng-template>
+</section>
