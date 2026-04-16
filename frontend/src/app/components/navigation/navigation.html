@@ -1,6 +1,6 @@
 <div class="nav-bar main-font">
   <div class="logo">
-    <p class="project-name">Recoflect-</p>
+    <p class="project-name">Recoflect</p>
   </div>
   <div class="main-links">
     <a routerLink="/home">Home</a>
@@ -9,9 +9,9 @@
   </div>
   <div class="right-corner">
     @if(isLoggedIn()) {
-      <a routerLink="#" >Profile</a>
+      <a (click)="logOut()" routerLink="#" >Log out</a>
     } @else {
-      <a routerLink="#" >Log in</a>
+      <a routerLink="/login" >Log in</a>
     }
   </div>
 </div>
