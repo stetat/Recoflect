@@ -13,7 +13,6 @@ from .serializers import (
     RegisterSerializer,
 )
 
-# Create your views here.
 User = get_user_model()
 
 
