@@ -1,0 +1,344 @@
+/* ── Page layout ── */
+.goals-page {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 32px 20px;
+}
+
+.goals-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 28px;
+}
+
+.goals-header h1 {
+  margin: 0 0 6px;
+  font-family: 'Syne', sans-serif;
+  font-size: 26px;
+  color: #0f172a;
+}
+
+.goals-header p {
+  margin: 0;
+  color: #64748b;
+  font-size: 14px;
+}
+
+/* ── Add button ── */
+.add-btn {
+  background: #0f5ad1;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  padding: 10px 20px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s;
+  white-space: nowrap;
+}
+
+.add-btn:hover { background: #1a67d8; }
+
+/* ── Goals grid ── */
+.goals-grid {
+  display: grid;
+  gap: 18px;
+}
+
+/* ── Goal card ── */
+.goal-card {
+  background: #fff;
+  border: 1px solid #e2e8f0;
+  border-radius: 14px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  animation: fadeUp 0.35s ease both;
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.goal-card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.goal-left {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+/* ── Circle progress ── */
+.goal-circle {
+  position: relative;
+  width: 64px;
+  height: 64px;
+  flex-shrink: 0;
+}
+
+.goal-pct {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Syne', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+/* ── Goal info ── */
+.goal-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.goal-title {
+  font-family: 'Syne', sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  color: #0f172a;
+}
+
+.goal-amounts {
+  font-size: 13px;
+  color: #64748b;
+}
+
+.sep { margin: 0 4px; opacity: 0.5; }
+
+/* ── Importance badge ── */
+.badge {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 3px 10px;
+  border-radius: 20px;
+  width: fit-content;
+}
+
+.importance-major  { background: #fee2e2; color: #991b1b; }
+.importance-normal { background: #dbeafe; color: #1e40af; }
+.importance-minor  { background: #dcfce7; color: #166534; }
+
+/* ── Days left ── */
+.days-left {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+
+.days-num {
+  font-family: 'Syne', sans-serif;
+  font-size: 24px;
+  font-weight: 700;
+  color: #0f5ad1;
+  line-height: 1;
+}
+
+.days-label {
+  font-size: 11px;
+  color: #94a3b8;
+}
+
+.overdue-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: #dc2626;
+  background: #fee2e2;
+  padding: 4px 10px;
+  border-radius: 20px;
+}
+
+/* ── Bar ── */
+.bar-track {
+  height: 8px;
+  background: #e8f0fd;
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #0f5ad1, #3b82f6);
+  border-radius: 20px;
+  transition: width 0.8s ease;
+}
+
+/* ── Deadline text ── */
+.goal-deadline {
+  font-size: 12px;
+  color: #94a3b8;
+}
+
+/* ── Card actions ── */
+.goal-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.btn-edit, .btn-delete {
+  padding: 7px 18px;
+  border: none;
+  border-radius: 8px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.btn-edit   { background: #e8f0fd; color: #0f5ad1; }
+.btn-delete { background: #fee2e2; color: #dc2626; }
+
+.btn-edit:hover, .btn-delete:hover { opacity: 0.8; }
+
+/* ── Empty state ── */
+.empty-state {
+  text-align: center;
+  padding: 60px 24px;
+  border: 1px dashed #cbd5e1;
+  border-radius: 14px;
+  color: #64748b;
+}
+
+.empty-icon { font-size: 48px; margin-bottom: 12px; }
+.empty-state p { margin-bottom: 20px; }
+
+/* ── Modal ── */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+.modal-box {
+  background: #f8fafe;
+  border-radius: 14px;
+  padding: 24px;
+  width: 100%;
+  max-width: 480px;
+  animation: fadeUp 0.25s ease both;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.modal-title {
+  font-family: 'Syne', sans-serif;
+  font-size: 20px;
+  font-weight: 600;
+  color: #0f172a;
+}
+
+.close-btn {
+  background: #0f5ad1;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  width: 28px;
+  height: 28px;
+  font-size: 14px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-hr {
+  border: none;
+  border-top: 1px solid #e2e8f0;
+  margin-bottom: 20px;
+}
+
+/* ── Form ── */
+.goal-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.form-group label {
+  font-size: 13px;
+  font-weight: 500;
+  color: #475569;
+}
+
+.counter {
+  font-size: 12px;
+  color: #94a3b8;
+  margin-left: 4px;
+}
+
+.form-group input,
+.form-group select {
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 9px 12px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  color: #0f172a;
+  background: #fff;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.form-group input:focus,
+.form-group select:focus { border-color: #0f5ad1; }
+
+input.ng-invalid.ng-touched,
+select.ng-invalid.ng-touched { border-color: #dc2626; }
+
+.error-text {
+  font-size: 12px;
+  color: #dc2626;
+}
+
+.submit-btn {
+  background: #0f5ad1;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  padding: 11px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s;
+  margin-top: 4px;
+}
+
+.submit-btn:hover:not(:disabled) { background: #1a67d8; }
+.submit-btn:disabled { opacity: 0.5; cursor: not-allowed; }

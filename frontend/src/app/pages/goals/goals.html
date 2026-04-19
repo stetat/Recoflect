@@ -1,1 +1,156 @@
-<p>goals works!</p>
+<section class="goals-page">
+
+  <!-- Header -->
+  <div class="goals-header">
+    <div>
+      <h1>My Goals</h1>
+      <p>Track your financial goals and stay on target.</p>
+    </div>
+    <button class="add-btn" type="button" (click)="openAddForm()">+ Add goal</button>
+  </div>
+
+  <!-- Goals list -->
+  @if (goals().length > 0) {
+    <div class="goals-grid">
+      @for (goal of goals(); track goal.id) {
+        <div class="goal-card">
+
+          <!-- Top row -->
+          <div class="goal-card-top">
+            <div class="goal-left">
+              <div class="goal-circle">
+                <svg width="64" height="64" viewBox="0 0 64 64">
+                  <circle cx="32" cy="32" r="26" stroke="#e8f0fd" stroke-width="6" fill="none"/>
+                  <circle cx="32" cy="32" r="26"
+                    stroke="#0f5ad1" stroke-width="6" fill="none"
+                    stroke-linecap="round"
+                    [attr.stroke-dasharray]="163.4"
+                    [attr.stroke-dashoffset]="getDashoffset(goal)"
+                    style="transform: rotate(-90deg); transform-origin: 50% 50%;
+                           transition: stroke-dashoffset 0.8s ease;"/>
+                </svg>
+                <div class="goal-pct">{{ getProgress(goal) | number:'1.0-0' }}%</div>
+              </div>
+
+              <div class="goal-info">
+                <div class="goal-title">{{ goal.title }}</div>
+                <div class="goal-amounts">
+                  {{ goal.current_amount | number }} <span class="sep">/</span> {{ goal.amount | number }}
+                </div>
+                <span class="badge" [ngClass]="getImportanceClass(goal.importance)">
+                  {{ getImportanceLabel(goal.importance) }}
+                </span>
+              </div>
+            </div>
+
+            <div class="days-left" [class.overdue]="getDaysLeft(goal.deadline) < 0">
+              @if (getDaysLeft(goal.deadline) >= 0) {
+                <span class="days-num">{{ getDaysLeft(goal.deadline) }}</span>
+                <span class="days-label">days left</span>
+              } @else {
+                <span class="overdue-label">Overdue</span>
+              }
+            </div>
+          </div>
+
+          <!-- Progress bar -->
+          <div class="bar-track">
+            <div class="bar-fill" [style.width.%]="getProgress(goal)"></div>
+          </div>
+
+          <!-- Deadline -->
+          <div class="goal-deadline">Deadline: {{ goal.deadline }}</div>
+
+          <!-- Actions -->
+          <div class="goal-actions">
+            <button type="button" class="btn-edit" (click)="openEditForm(goal)">Edit</button>
+            <button type="button" class="btn-delete" (click)="onDelete(goal.id)">Delete</button>
+          </div>
+
+        </div>
+      }
+    </div>
+  } @else {
+    <div class="empty-state">
+      <div class="empty-icon">🎯</div>
+      <p>No goals yet. Add your first goal!</p>
+      <button class="add-btn" type="button" (click)="openAddForm()">+ Add goal</button>
+    </div>
+  }
+
+</section>
+
+<!-- Modal form -->
+@if (showForm()) {
+  <div class="modal-overlay" (click)="closeForm()">
+    <div class="modal-box" (click)="$event.stopPropagation()">
+
+      <div class="modal-header">
+        <span class="modal-title">{{ editingGoal() ? 'Edit goal' : 'Add goal' }}</span>
+        <button class="close-btn" type="button" (click)="closeForm()">✕</button>
+      </div>
+
+      <div class="modal-hr"></div>
+
+      <form class="goal-form" #goalForm="ngForm" (ngSubmit)="onSubmit()">
+
+        <div class="form-group">
+          <label>
+            Title
+            <span class="counter">({{ newGoal.title?.length || 0 }}/50)</span>
+          </label>
+          <input type="text" name="title" maxlength="50"
+            [(ngModel)]="newGoal.title" required #titleField="ngModel"
+            placeholder="e.g. New car">
+          @if (titleField.invalid && titleField.touched) {
+            <span class="error-text">Required</span>
+          }
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>Target amount</label>
+            <input type="number" name="amount" min="1"
+              [(ngModel)]="newGoal.amount" required #amountField="ngModel"
+              placeholder="0">
+            @if (amountField.invalid && amountField.touched) {
+              <span class="error-text">Required</span>
+            }
+          </div>
+
+          <div class="form-group">
+            <label>Saved so far</label>
+            <input type="number" name="current_amount" min="0"
+              [(ngModel)]="newGoal.current_amount"
+              placeholder="0">
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>Deadline</label>
+            <input type="date" name="deadline"
+              [(ngModel)]="newGoal.deadline" required #deadlineField="ngModel">
+            @if (deadlineField.invalid && deadlineField.touched) {
+              <span class="error-text">Required</span>
+            }
+          </div>
+
+          <div class="form-group">
+            <label>Importance</label>
+            <select name="importance" [(ngModel)]="newGoal.importance">
+              <option [value]="1">Major</option>
+              <option [value]="2">Normal</option>
+              <option [value]="3">Minor</option>
+            </select>
+          </div>
+        </div>
+
+        <button class="submit-btn" type="submit" [disabled]="!goalForm.valid">
+          {{ editingGoal() ? 'Save changes' : 'Add goal' }}
+        </button>
+      </form>
+
+    </div>
+  </div>
+}
