@@ -12,7 +12,6 @@ interface RecordItem {
 
 @Component({
   selector: 'app-records',
-  standalone: true,
   imports: [CommonModule],
   templateUrl: './records.html',
   styleUrl: './records.css'
