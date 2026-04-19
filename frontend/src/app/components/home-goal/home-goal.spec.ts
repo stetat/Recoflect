@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { HomeGoal } from './home-goal';
-
+import { DecimalPipe } from '@angular/common';
 describe('HomeGoal', () => {
   let component: HomeGoal;
   let fixture: ComponentFixture<HomeGoal>;

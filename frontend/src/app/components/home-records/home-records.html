@@ -1,31 +1,38 @@
-<div class="main-box">
-  <div class="record-box">
-    <div class="header">
-      <p>Current records</p>
-      <a href="#">
-        <div class="all-records-btn">
-          all records
-        </div>
-      </a>
+<div class="records-card">
+
+  <div class="records-header">
+    <span class="records-label">Current records</span>
+    <a routerLink="/records">
+      <div class="all-btn">all records</div>
+    </a>
+  </div>
+
+  <div class="period">
+    {{dayStart()}}.{{monthStart()}} — {{dayEnd()}}.{{monthEnd()}}
+  </div>
+
+  <div class="stats-row">
+    <div class="stat-box">
+      <div class="stat-value income">+${{income()}}</div>
+      <div class="stat-label">Income</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-value expense">−${{expense()}}</div>
+      <div class="stat-label">Expenses</div>
     </div>
   </div>
-  <div class="hr-line"></div>
-  <div class="data-box">
-    <div class="initial">
-      <div class="date">
-        {{dayStart()}}.{{monthStart()}} - {{dayEnd()}}.{{monthEnd()}}
-      </div>
-      <div class="income">
-        Income: {{income()}}$
-      </div>
-      <div class="expense">
-        Expense: {{expense()}}$
+
+  <div class="net-box">
+    <div>
+      <div class="net-label">Net balance</div>
+      <div class="net-value">
+        @if(net() >= 0) { +${{net()}} } @else { −${{net() * -1}} }
       </div>
     </div>
-    <div class="conclusion">
-      <div class="net">
-        Net: {{net()}}$
-      </div>
-    </div>
+    <svg width="28" height="28" fill="none" viewBox="0 0 24 24">
+      <path d="M7 17L17 7M17 7H7M17 7v10" stroke="#4ade80"
+        stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
   </div>
+
 </div>

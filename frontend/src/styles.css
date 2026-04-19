@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700&family=DM+Sans:wght@300;400;500&display=swap');
+
 html, body {
   height: 100%;
   margin: 0;
@@ -20,14 +22,11 @@ body {
   padding: 0 !important;
   overflow-x: hidden;
   background-color: #f8fafe;
+  font-family: 'DM Sans', sans-serif;
 }
 
 .main-font {
-  font-family: "Mona Sans", sans-serif;
-  font-optical-sizing: auto;
-  font-weight: 400; /* Use 400 for normal, 700 for bold */
-  font-style: normal;
-  font-variation-settings: "wdth" 100;
+  font-family: 'DM Sans', sans-serif;
 }
 
 a {

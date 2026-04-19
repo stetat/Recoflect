@@ -1,8 +1,10 @@
-import {Component, computed, signal} from '@angular/core';
+import { Component, computed, signal } from '@angular/core';
+import { RouterLink } from '@angular/router';
+import { DecimalPipe } from '@angular/common';
 
 @Component({
   selector: 'app-home-goal',
-  imports: [],
+  imports: [RouterLink, DecimalPipe],
   templateUrl: './home-goal.html',
   styleUrl: './home-goal.css',
 })

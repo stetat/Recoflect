@@ -1,19 +1,29 @@
-<div class="main-box">
-  <div class="limit-box">
-    <p>This week's limit</p>
-    <div class="limit-bar">
-      <div class="filler" [style.width.%]="budgetLimit()"></div>
-    </div>
-    <div class="conclusion">
-      @if(budgetLimit() > 80.0) {
-        <p class="limit-80">Watch your spending</p>
-      } @else if(budgetLimit() > 40.0) {
-        <p class="limit-40">Well planned! You still have money to spend</p>
-      } @else {
-        <p class="limit-0">You're saving decently</p>
-      }
-    </div>
+<div class="limit-card">
+
+  <div class="limit-header">
+    <span class="limit-label">Weekly limit</span>
+    @if(budgetLimit() > 80.0) {
+      <span class="status-badge status-warn">Watch out</span>
+    } @else if(budgetLimit() > 40.0) {
+      <span class="status-badge status-ok">Well planned</span>
+    } @else {
+      <span class="status-badge status-save">Saving well</span>
+    }
   </div>
-  <div class="hr-line"></div>
+
+  <div class="bar-track">
+    <div class="bar-fill" [style.width.%]="budgetLimit()"></div>
+  </div>
+
+  <div class="limit-footer">
+    <span class="limit-pct">{{budgetLimit()}}% of budget used</span>
+    @if(budgetLimit() > 80.0) {
+      <span class="limit-caption warn-text">Watch your spending</span>
+    } @else if(budgetLimit() > 40.0) {
+      <span class="limit-caption ok-text">You still have room</span>
+    } @else {
+      <span class="limit-caption save-text">You're saving decently</span>
+    }
+  </div>
 
 </div>

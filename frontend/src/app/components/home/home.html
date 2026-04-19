@@ -1,22 +1,21 @@
-<div class="main-container main-font">
+<div class="home-wrapper">
+
   <div class="greeting">
-    <p>Hello@if(isLoggedIn()){, {{userName}}}!</p>
+    <h1 class="greeting-title">
+      Hello@if(isLoggedIn()){, <span class="greeting-name">{{userName}}</span>}!
+    </h1>
+    <p class="greeting-sub">Here's your financial snapshot for this week</p>
   </div>
 
-  <div class="limit-box">
+  <div class="cards-grid">
     <app-home-limit></app-home-limit>
-  </div>
-
-  <div class="recrods-box">
     <app-home-records></app-home-records>
-  </div>
-
-  <div class="goal-box">
     <app-home-goal></app-home-goal>
   </div>
 
-  <div class="btn">
+  <div class="actions-row">
     <app-add-record-btn></app-add-record-btn>
     <app-add-goal-btn></app-add-goal-btn>
   </div>
+
 </div>

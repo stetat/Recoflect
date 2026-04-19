@@ -1,46 +1,79 @@
+:host {
+  display: block;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 14px;
+  padding: 1.25rem;
+  animation: fadeUp 0.4s ease both;
+}
 
-.main-box {
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+
+.limit-card {
   display: flex;
   flex-direction: column;
-
-  overflow-x: hidden;
-  width: 380px;
-  height: 150px;
-  border-radius: 6.7px;
-  border: 1px solid black;
+  gap: 0.75rem;
 }
 
-.limit-box {
+.limit-header {
   display: flex;
-  flex-direction: column;
-  margin-left: 10px;
-  margin-top: -20px;
+  justify-content: space-between;
+  align-items: center;
 }
 
-.limit-box p {
-  font-size: 28px;
+.limit-label {
+  font-family: 'Syne', sans-serif;
+  font-size: 17px;
+  font-weight: 600;
+  color: #0f172a;
 }
-.limit-bar {
-  height: 25px;
-  width: 220px;
-  border: 1px solid black;
-  border-radius: 15px;
-  margin-top: -7px;
+
+.status-badge {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  padding: 3px 10px;
+  border-radius: 20px;
+}
+
+.status-warn { background: #fef3c7; color: #92400e; }
+.status-ok   { background: #d1fae5; color: #065f46; }
+.status-save { background: #dbeafe; color: #1e40af; }
+
+.bar-track {
+  height: 10px;
+  background: #e8f0fd;
+  border-radius: 20px;
   overflow: hidden;
-  background-color: #f1f5f9;
 }
 
-.filler {
+.bar-fill {
   height: 100%;
-  background-color: #0f5ad1;
+  background: linear-gradient(90deg, #0f5ad1, #3b82f6);
+  border-radius: 20px;
+  transition: width 0.8s ease;
 }
 
-.conclusion p{
-  font-size: 16px;
+.limit-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
-.hr-line {
-  border: 0.3px solid black;
-  width: 100% !important;
-  margin-top: -94px;
+.limit-pct {
+  font-size: 12px;
+  color: #64748b;
 }
+
+.limit-caption {
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.warn-text { color: #92400e; }
+.ok-text   { color: #065f46; }
+.save-text { color: #1e40af; }

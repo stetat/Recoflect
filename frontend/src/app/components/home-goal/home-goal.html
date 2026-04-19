@@ -1,30 +1,40 @@
-<div class="main-box">
-  <div class="goal-box">
-    <div class="header">
-      <p>Goal</p>
-      <a href="#">
-        <div class="all-goals-btn">
-          all goals
-        </div>
-      </a>
-    </div>
+<div class="goal-card">
+
+  <div class="goal-header">
+    <span class="goal-label">Active goal</span>
+    <a routerLink="/goals">
+      <div class="all-btn">all goals</div>
+    </a>
   </div>
-  <div class="hr-line"></div>
-  <div class="data-box">
-    <div class="initials">
-      <div class="limit-bar">
-        <div class="filler" [style.width.%]="goalReach()"></div>
-      </div>
-      <div class="goal-title">
-        {{goalTitle()}}
-      </div>
+
+  <div class="goal-body">
+
+    <div class="goal-circle">
+      <svg width="64" height="64" viewBox="0 0 64 64">
+        <circle cx="32" cy="32" r="26" stroke="#e8f0fd" stroke-width="6" fill="none"/>
+        <circle cx="32" cy="32" r="26"
+          stroke="#0f5ad1" stroke-width="6" fill="none"
+          stroke-linecap="round"
+          [attr.stroke-dasharray]="163.4"
+          [attr.stroke-dashoffset]="163.4 - (163.4 * goalReach() / 100)"
+          style="transform: rotate(-90deg); transform-origin: 50% 50%;
+                 transition: stroke-dashoffset 0.8s ease;"/>
+      </svg>
+      <div class="goal-pct">{{goalReach() | number:'1.0-0'}}%</div>
     </div>
-    <div class="goal-stat">
-      <div class="stat">
-        {{currentBalance()}} / <br>
-        {{goalBalance()}}
+
+    <div class="goal-info">
+      <div class="goal-name">{{goalTitle()}}</div>
+      <div class="goal-amounts">
+        ${{currentBalance()}} <span class="goal-sep">/</span> ${{goalBalance()}}
       </div>
+      <span class="status-badge">On track</span>
     </div>
+
+  </div>
+
+  <div class="bar-track">
+    <div class="bar-fill" [style.width.%]="goalReach()"></div>
   </div>
 
 </div>

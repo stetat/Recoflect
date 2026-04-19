@@ -1,6 +1,6 @@
 import {Component, computed, signal} from '@angular/core';
-
-@Component({
+import { RouterLink } from  '@angular/router';
+ @Component({
   selector: 'app-home-records',
   imports: [],
   templateUrl: './home-records.html',
