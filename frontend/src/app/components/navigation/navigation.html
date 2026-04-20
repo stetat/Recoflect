@@ -3,15 +3,15 @@
     <p class="project-name">Recoflect</p>
   </div>
   <div class="main-links">
-    <a routerLink="/home">Home</a>
-    <a routerLink="/records">Records</a>
-    <a routerLink="/goals">Goals</a>
+    <a routerLink="/home" routerLinkActive="active-link">Home</a>
+    <a routerLink="/records" routerLinkActive="active-link">Records</a>
+    <a routerLink="/goals" routerLinkActive="active-link">Goals</a>
   </div>
   <div class="right-corner">
     @if(isLoggedIn()) {
-      <a (click)="logOut()" routerLink="#" >Log out</a>
+      <a (click)="logOut()">Log out</a>
     } @else {
-      <a routerLink="/login" >Log in</a>
+      <a routerLink="/login">Log in</a>
     }
   </div>
 </div>

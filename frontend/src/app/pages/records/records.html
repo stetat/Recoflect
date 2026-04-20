@@ -1,32 +1,52 @@
 <section class="records-page">
+
   <div class="records-header">
-    <h1>My Records</h1>
-    <p>Here you can view, edit, and delete your financial records.</p>
+    <h1 class="records-title">My Records</h1>
+    <p class="records-sub">View, edit, and delete your financial records</p>
   </div>
 
-  <div class="records-list" *ngIf="records.length > 0; else emptyState">
-    <div class="record-card" *ngFor="let record of records">
-      <div class="record-card-top">
-        <div>
-          <h3>{{ getTypeLabel(record.type) }}</h3>
-          <span class="record-date">{{ record.date }}</span>
+  @if(records.length > 0) {
+    <div class="records-list">
+      @for(record of records; track record.id) {
+        <div class="record-card">
+
+          <div class="record-card-top">
+            <div class="record-left">
+              <span class="record-type-badge"
+                [class.income]="record.type === 1"
+                [class.expense]="record.type === 2">
+                {{ getTypeLabel(record.type) }}
+              </span>
+              <span class="record-category">{{ record.category }}</span>
+            </div>
+            <div class="record-right">
+              <span class="record-amount"
+                [class.amount-income]="record.type === 1"
+                [class.amount-expense]="record.type === 2">
+                {{ record.type === 1 ? '+' : '−' }}${{ record.amount }}
+              </span>
+            </div>
+          </div>
+
+          <div class="record-meta">
+            <span class="record-date"> {{ record.date }}</span>
+            <span class="record-reflection">{{ getReflectionLabel(record.reflection) }}</span>
+          </div>
+
+          <div class="record-actions">
+            <button class="btn-edit" type="button" (click)="onEdit(record)">Edit</button>
+            <button class="btn-delete" type="button" (click)="onDelete(record.id)">Delete</button>
+          </div>
+
         </div>
-      </div>
-
-      <p class="record-info"><strong>Category:</strong> {{ record.category }}</p>
-      <p class="record-info"><strong>Amount:</strong> {{ record.amount }}</p>
-      <p class="record-info"><strong>Reflection:</strong> {{ getReflectionLabel(record.reflection) }}</p>
-
-      <div class="record-actions">
-        <button type="button" (click)="onEdit(record)">Edit</button>
-        <button type="button" (click)="onDelete(record.id)">Delete</button>
-      </div>
+      }
     </div>
-  </div>
-
-  <ng-template #emptyState>
+  } @else {
     <div class="empty-state">
+      <div class="empty-icon"></div>
       <p>No records yet.</p>
+      <span>Add your first record from the home page</span>
     </div>
-  </ng-template>
+  }
+
 </section>
