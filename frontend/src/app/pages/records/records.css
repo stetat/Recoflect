@@ -174,6 +174,39 @@
   font-size: 13px;
 }
 
+/* ─── Two columns ─── */
+.columns-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  align-items: start;
+}
+
+.column-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.75rem;
+}
+
+.sort-select {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px;
+  color: #475569;
+  background: #f1f5f9;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 4px 8px;
+  cursor: pointer;
+  outline: none;
+}
+
+@media (max-width: 700px) {
+  .columns-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
 /* ─── Section labels ─── */
 .section-label {
   font-size: 18px;

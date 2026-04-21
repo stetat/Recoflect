@@ -15,8 +15,23 @@ export class Records implements OnInit {
   error = signal<string | null>(null);
   records = signal<RecordItem[]>([]);
 
-  income  = computed(() => this.records().filter(r => r.type === 1));
-  expense = computed(() => this.records().filter(r => r.type === 2));
+  incomeSort  = signal<'date-asc'|'date-desc'|'amount-asc'|'amount-desc'>('date-desc');
+  expenseSort = signal<'date-asc'|'date-desc'|'amount-asc'|'amount-desc'>('date-desc');
+
+  income  = computed(() => this.sortRecords(this.records().filter(r => r.type === 1), this.incomeSort()));
+  expense = computed(() => this.sortRecords(this.records().filter(r => r.type === 2), this.expenseSort()));
+
+  setIncomeSort(val: string)  { this.incomeSort.set(val as any); }
+  setExpenseSort(val: string) { this.expenseSort.set(val as any); }
+
+  private sortRecords(list: RecordItem[], sort: string): RecordItem[] {
+    return [...list].sort((a, b) => {
+      if (sort === 'amount-asc')  return parseFloat(a.amount) - parseFloat(b.amount);
+      if (sort === 'amount-desc') return parseFloat(b.amount) - parseFloat(a.amount);
+      if (sort === 'date-asc')    return a.date.localeCompare(b.date);
+      return b.date.localeCompare(a.date);
+    });
+  }
 
   constructor(private recordService: RecordService) {}
 

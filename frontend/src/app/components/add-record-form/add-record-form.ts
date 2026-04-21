@@ -16,6 +16,12 @@ export class AddRecordForm implements OnInit {
   categories = signal<Category[]>([]);
   newCategoryTitle = '';
   error = '';
+  addingBasic = false;
+
+  private readonly basicCategories = [
+    'Food', 'Transport', 'Bills', 'Healthcare',
+    'Entertainment', 'Education', 'Salary', 'Other'
+  ];
 
   record = {
     type: 2 as 1 | 2,
@@ -39,6 +45,22 @@ export class AddRecordForm implements OnInit {
 
   toggleAddRecordForm() {
     this.showAddRecordPage.set(false);
+  }
+
+  addBasicCategories() {
+    this.addingBasic = true;
+    const requests = this.basicCategories.map(title =>
+      this.recordService.createCategory(title).toPromise()
+    );
+    Promise.all(requests).then(created => {
+      const cats = created.filter(Boolean) as Category[];
+      this.categories = [...this.categories, ...cats];
+      if (this.categories.length > 0) this.record.category = this.categories[0].id;
+      this.addingBasic = false;
+    }).catch(() => {
+      this.error = 'Failed to add basic categories.';
+      this.addingBasic = false;
+    });
   }
 
   addCategory() {
