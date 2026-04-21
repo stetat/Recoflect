@@ -16,12 +16,8 @@ class UserQuerySet(models.QuerySet):
         return self.filter(role=2)
 
 
-class CustomUserManager(UserManager.from_queryset(UserQuerySet)):
-    pass
-
-
 class User(AbstractUser):
-    objects = CustomUserManager()
+    objects = UserManager()
 
     class Role(models.IntegerChoices):
         PARENT = 1, "Parent"

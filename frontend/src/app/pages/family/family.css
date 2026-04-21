@@ -248,52 +248,35 @@
 .invite-box {
   display: flex;
   flex-direction: column;
-  gap: 6px;
-  min-width: 156px;
-  padding: 12px 14px;
-  border-radius: 14px;
+  gap: 8px;
+  min-width: 190px;
+  padding: 16px;
+  border-radius: 16px;
   background: linear-gradient(135deg, #0f5ad1, #3b82f6);
   color: #fff;
   box-shadow: 0 18px 35px rgba(15, 90, 209, 0.18);
 }
 
 .invite-box .label {
-  font-size: 11px;
+  font-size: 12px;
   opacity: 0.8;
   text-transform: uppercase;
   letter-spacing: 0.08em;
 }
 
 .invite-box strong {
-  font-size: 18px;
+  font-size: 24px;
   letter-spacing: 0.08em;
-}
-
-.invite-code-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
 }
 
 .invite-box button {
   width: fit-content;
-  padding: 4px 8px;
+  padding: 8px 14px;
   border: 1px solid rgba(255, 255, 255, 0.25);
   border-radius: 999px;
   background: rgba(255, 255, 255, 0.12);
   color: #fff;
   cursor: pointer;
-  font-size: 11px;
-  line-height: 1.1;
-}
-
-.copy-btn {
-  flex-shrink: 0;
-}
-
-.regenerate-btn {
-  margin-top: 2px;
 }
 
 .leave-btn {
@@ -485,66 +468,6 @@
   background: #fff;
 }
 
-.confirm-overlay {
-  position: fixed;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 20px;
-  background: rgba(15, 23, 42, 0.35);
-  z-index: 1000;
-}
-
-.confirm-modal {
-  width: 100%;
-  max-width: 360px;
-  padding: 24px;
-  border-radius: 18px;
-  background: #fff;
-  box-shadow: 0 24px 60px rgba(15, 23, 42, 0.2);
-}
-
-.confirm-modal h3 {
-  margin: 0 0 10px;
-  font-size: 22px;
-  color: #0f172a;
-}
-
-.confirm-modal p {
-  margin: 0;
-  color: #64748b;
-  font-size: 14px;
-  line-height: 1.5;
-}
-
-.confirm-actions {
-  display: flex;
-  justify-content: flex-end;
-  gap: 10px;
-  margin-top: 20px;
-}
-
-.confirm-btn,
-.cancel-btn {
-  border: none;
-  border-radius: 12px;
-  padding: 10px 14px;
-  font: inherit;
-  font-weight: 700;
-  cursor: pointer;
-}
-
-.confirm-btn {
-  background: #ef4444;
-  color: #fff;
-}
-
-.cancel-btn {
-  background: #e2e8f0;
-  color: #334155;
-}
-
 @media (max-width: 900px) {
   .setup-grid,
   .summary-grid,
@@ -568,11 +491,6 @@
     width: 100%;
   }
 
-  .invite-code-row {
-    flex-direction: column;
-    align-items: stretch;
-  }
-
   .leave-btn {
     width: 100%;
   }
@@ -582,10 +500,6 @@
   }
 
   .request-actions {
-    flex-direction: column;
-  }
-
-  .confirm-actions {
     flex-direction: column;
   }
 }
