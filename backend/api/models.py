@@ -1,8 +1,8 @@
 import uuid
-from time import timezone
 
 from django.contrib.auth.models import AbstractUser, UserManager
 from django.db import models
+from django.utils import timezone
 
 from .utils import generate_family_invite_code
 
@@ -47,6 +47,27 @@ class Family(models.Model):
 
     def __str__(self):
         return self.family_name
+
+
+class FamilyJoinRequest(models.Model):
+    class Status(models.IntegerChoices):
+        PENDING = 1, "Pending"
+        APPROVED = 2, "Approved"
+        REJECTED = 3, "Rejected"
+
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4)
+    family = models.ForeignKey(
+        Family, on_delete=models.CASCADE, related_name="join_requests"
+    )
+    user = models.ForeignKey(
+        User, on_delete=models.CASCADE, related_name="family_join_requests"
+    )
+    desired_role = models.IntegerField(choices=User.Role.choices)
+    status = models.IntegerField(choices=Status.choices, default=Status.PENDING)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ["-created_at"]
 
 
 class Category(models.Model):
@@ -117,6 +138,7 @@ class Goal(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4)
     title = models.CharField(max_length=50, unique=True)
     amount = models.IntegerField()
+    current_amount = models.IntegerField(default=0)
     deadline = models.DateField()
     importance = models.IntegerField(choices=Importance, default=Importance.NORMAL)
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="goals")

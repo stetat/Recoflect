@@ -6,7 +6,9 @@ import {Goals} from './pages/goals/goals';
 import {Contacts} from './components/contacts/contacts';
 import {Login} from './pages/login/login';
 import {Register} from './pages/register/register';
-import {Family} from './pages/family/family';
+import { Family } from './pages/family/family';
+ 
+ 
 
 export const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -17,5 +19,7 @@ export const routes: Routes = [
   { path: 'contacts', component: Contacts},
   { path: 'login', component: Login},
   { path: 'register', component: Register},
+  { path: 'records', component: Records },          
+  { path: 'goals', component: Goals }, 
   { path: 'family', component: Family },
 ];

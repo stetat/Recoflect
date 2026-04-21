@@ -11,7 +11,7 @@ import {AddGoalForm} from '../add-goal-form/add-goal-form';
   templateUrl: './add-goal.html',
   styleUrl: './add-goal.css',
 })
-export class AddGoalBtn {
+export class AddGoal{
   showAddGoalForm = signal<boolean>(false);
 
   toggleAddGoalForm = () => this.showAddGoalForm.set(!this.showAddGoalForm());

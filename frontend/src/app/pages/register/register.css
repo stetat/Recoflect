@@ -33,17 +33,22 @@ h2 {
 
 
 button {
-
   font-size: 24px;
   width: 120px;
   padding: 8px;
   border-radius: 6.7px;
   margin-top: 70px;
-
   margin-bottom: -15px;
   background-color: #0f5ad1;
   color: #f8fafe;
   border: none;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+button:hover {
+  background-color: #0c4db2;
+  transform: translateY(-1px);
 }
 
 form {
@@ -100,13 +105,6 @@ input:focus {
 }
 
 .toggle-btn {
-  /*display: flex;*/
-  /*align-items: center;*/
-  /*justify-content: center;*/
-  /*position: absolute;*/
-  /*right: 150px;*/
-  /*top: 72%;*/
-  /*transform: translateY(-50%);*/
   font-size: 16px;
   width: 55px;
   height: 30px;
@@ -126,3 +124,37 @@ input#password {
   width: 350px;
 }
 
+.create-account-link {
+  margin-top: 28px;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.create-account {
+  color: #0f5ad1;
+  font-size: 16px;
+  font-weight: 600;
+  padding: 10px 16px;
+  border-radius: 999px;
+  background: rgba(15, 90, 209, 0.08);
+  border: 1px solid rgba(15, 90, 209, 0.16);
+  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+
+.create-account:hover {
+  background: rgba(15, 90, 209, 0.14);
+  color: #0c4db2;
+  border-color: rgba(15, 90, 209, 0.24);
+}
+
+.error {
+  margin-top: 20px;
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 10px;
+  background: #fee2e2;
+  color: #b91c1c;
+  font-size: 14px;
+  text-align: center;
+}

@@ -37,6 +37,18 @@
       </div>
 
       <button type="submit" [disabled]="registerForm.invalid">Register</button>
+
+      <div class="create-account-link">
+        <a class="create-account" routerLink="/login" routerLinkActive="routerLinkActive">
+          Already have an account?
+        </a>
+      </div>
     </form>
+
+    @if (errorMessage()) {
+      <div class="error">
+        {{ errorMessage() }}
+      </div>
+    }
   </div>
 </div>

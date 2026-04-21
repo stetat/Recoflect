@@ -1,12 +1,14 @@
 import {Component, signal} from '@angular/core';
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import {AuthService} from '../../services/auth-service';
-import {Router} from '@angular/router';
+import {Router, RouterLink, RouterLinkActive} from '@angular/router';
 
 @Component({
   selector: 'app-register',
   imports: [
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    RouterLink,
+    RouterLinkActive
   ],
   templateUrl: './register.html',
   styleUrl: './register.css',
@@ -36,9 +38,26 @@ export class Register {
   togglePassword(){
     this.hidePassword.update(prevState => !prevState);
   }
+
   onSubmit(){
     if (this.registerForm.valid) {
-      this.authService
+      this.authService.register(this.registerForm.value).subscribe({
+        next: () => {
+          this.errorMessage.set('');
+          void this.router.navigate(['/home']);
+        },
+        error: err => {
+          const backendError =
+            err?.error?.username?.[0] ??
+            err?.error?.email?.[0] ??
+            err?.error?.password?.[0] ??
+            err?.error?.detail ??
+            'Registration failed.';
+
+          this.errorMessage.set(backendError);
+          console.error(err);
+        }
+      });
     }
   }
 
