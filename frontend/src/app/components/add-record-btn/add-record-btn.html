@@ -1,11 +1,14 @@
 <div class="main-box">
-    <a>
-      <div class="cta-btn" (click)="toggleAddRecordForm()">
-        Add record
-      </div>
-    </a>
+  <a>
+    <div class="cta-btn" (click)="toggleAddRecordForm()">
+      Add record
+    </div>
+  </a>
 </div>
 
-@if(showAddRecordForm()) {
-  <app-add-record-form [(showAddRecordPage)]="showAddRecordForm"></app-add-record-form>
+@if (showAddRecordForm()) {
+  <app-add-record-form
+    [(showAddRecordPage)]="showAddRecordForm"
+    (recordCreated)="onRecordCreated()">
+  </app-add-record-form>
 }

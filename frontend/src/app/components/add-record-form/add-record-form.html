@@ -1,69 +1,69 @@
 <div class="modal-overlay">
   <div class="modal-box">
-    <div class="cancel-btn" (click)="toggleAddRecordForm()">
-      x
-    </div>
+    <div class="cancel-btn" (click)="toggleAddRecordForm()">x</div>
 
-    <div class="title">
-      Add record
-    </div>
+    <div class="title">Add record</div>
     <div class="hr-line"></div>
+
+    @if (error) {
+      <p style="color: red; font-size: 14px;">{{ error }}</p>
+    }
+
     <div class="form-box">
       <form class="record-form" #recordForm="ngForm" (ngSubmit)="onSubmit()">
+
         <div class="form-type">
           <label>Type</label>
-          @if(type.invalid && type.touched) {
-            <span class="error-text">Required</span>
-          }
-          <select name="type" [(ngModel)]="record.type" #type="ngModel">
-            @for (type of types; track type) {
-              <option [value]="type">{{ type }}</option>
-            }
+          <select name="type" [(ngModel)]="record.type">
+            <option [ngValue]="2">Expense</option>
+            <option [ngValue]="1">Income</option>
           </select>
         </div>
 
         <div class="form-category">
           <label>Category</label>
-          @if(category.invalid && category.touched) {
-            <span class="error-text">Required</span>
+          @if (categories.length > 0) {
+            <select name="category" [(ngModel)]="record.category" required>
+              @for (cat of categories; track cat.id) {
+                <option [value]="cat.id">{{ cat.title }}</option>
+              }
+            </select>
           }
-          <select name="category" [(ngModel)]="record.category" required #category="ngModel">
-            @for (cat of categories; track cat) {
-              <option [value]="cat">{{ cat }}</option>
-            }
-          </select>
+          <div class="new-category-row">
+            <input
+              type="text"
+              name="newCategory"
+              [(ngModel)]="newCategoryTitle"
+              placeholder="New category name">
+            <button type="button" (click)="addCategory()">+ Add</button>
+          </div>
         </div>
 
         <div class="form-amount">
           <label>
             Amount
-            @if(amount.invalid && amount.touched) {
+            @if (amount.invalid && amount.touched) {
               <span class="error-text">Required</span>
             }
           </label>
-
-          <input type="number" name="amount" [(ngModel)]="record.amount" required #amount="ngModel">
+          <input type="number" name="amount" [(ngModel)]="record.amount" required min="0.01" #amount="ngModel">
         </div>
 
         <div class="form-date">
           <label>Date</label>
-          @if(date.invalid && date.touched) {
-            <span class="error-text">Required</span>
-          }
-          <input type="date" name="date" [(ngModel)]="record.date" #date="ngModel">
+          <input type="date" name="date" [(ngModel)]="record.date" required>
         </div>
 
         <div class="form-reflection">
           <label>Reflection</label>
-
           <select name="reflection" [(ngModel)]="record.reflection">
-            @for (ref of reflections; track ref) {
-              <option [value]="ref">{{ ref }}</option>
-            }
+            <option [ngValue]="1">Happy</option>
+            <option [ngValue]="2">Neutral</option>
+            <option [ngValue]="3">Regret</option>
           </select>
         </div>
 
-        <button class="submit-btn" type="submit" [disabled]="!recordForm.valid">Save</button>
+        <button class="submit-btn" type="submit" [disabled]="!recordForm.valid || categories.length === 0">Save</button>
       </form>
     </div>
   </div>

@@ -8,6 +8,13 @@
 }
 
 /* ─── Header ─── */
+.records-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 0.5rem;
+}
+
 .records-title {
   font-family: 'Syne', sans-serif;
   font-size: 42px;
