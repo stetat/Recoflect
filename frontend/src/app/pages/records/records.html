@@ -1,8 +1,11 @@
 <section class="records-page">
 
   <div class="records-header">
-    <h1 class="records-title">My Records</h1>
-    <p class="records-sub">View and manage your financial records</p>
+    <div>
+      <h1 class="records-title">My Records</h1>
+      <p class="records-sub">View and manage your financial records</p>
+    </div>
+    <app-add-record-btn (recordCreated)="loadRecords()"></app-add-record-btn>
   </div>
 
   @if (loading()) {

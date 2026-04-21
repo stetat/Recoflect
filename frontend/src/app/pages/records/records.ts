@@ -1,10 +1,11 @@
 import { Component, computed, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RecordItem, RecordService } from '../../services/record-service';
+import { AddRecordBtn } from '../../components/add-record-btn/add-record-btn';
 
 @Component({
   selector: 'app-records',
-  imports: [CommonModule],
+  imports: [CommonModule, AddRecordBtn],
   templateUrl: './records.html',
   styleUrl: './records.css',
   providers: [RecordService],
