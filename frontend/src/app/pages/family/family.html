@@ -69,9 +69,17 @@
           </div>
         }
 
+        <button class="ai-btn" type="button" (click)="showAI.set(!showAI())">AI Analysis</button>
         <button type="button" class="leave-btn" (click)="leaveFamily()">Leave family</button>
       </div>
     </div>
+
+    @if (showAI()) {
+      <div class="ai-box">
+        <span class="ai-label">Advice</span>
+        <p>Емел лох</p>
+      </div>
+    }
 
     <div class="summary-grid">
       <article class="summary-card">

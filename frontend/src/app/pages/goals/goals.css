@@ -24,13 +24,62 @@
   font-size: 14px;
 }
 
-/* ── Add button ── */
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.ai-btn {
+  background: #1a67d8;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  padding: 0.75rem 1rem;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.ai-btn:hover { background: #1558b0; }
+
+.ai-box {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+   background: #badaf1;
+  border: 1px solid #91eff6;
+  border-radius: 12px;
+  padding: 14px 18px;
+  margin-bottom: 1.5rem;
+}
+
+.ai-label {
+  background: #1a67d8;
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+  border-radius: 6px;
+  padding: 2px 7px;
+  white-space: nowrap;
+  margin-top: 2px;
+}
+
+.ai-box p {
+  margin: 0;
+  font-size: 14px;
+  color: #1a67d8;
+  line-height: 1.5;
+}
+
+ 
 .add-btn {
   background: #0f5ad1;
   color: #ffffff;
   border: none;
   border-radius: 10px;
-  padding: 0.75rem 1rem;
+  padding: 0.75rem 1.5rem;
   font-size: 14px;
   font-weight: 500;
   cursor: pointer;
@@ -41,13 +90,12 @@
 
 .add-btn:hover { background: #1a67d8; }
 
-/* ── Goals grid ── */
+ 
 .goals-grid {
   display: grid;
   gap: 18px;
 }
-
-/* ── Goal card ── */
+ 
 .goal-card {
   background: #fff;
   border: 1px solid #e2e8f0;
@@ -76,7 +124,7 @@
   gap: 16px;
 }
 
-/* ── Circle progress ── */
+ 
 .goal-circle {
   position: relative;
   width: 64px;
@@ -94,8 +142,7 @@
   font-weight: 700;
   color: #0f172a;
 }
-
-/* ── Goal info ── */
+ 
 .goal-info {
   display: flex;
   flex-direction: column;
@@ -115,7 +162,7 @@
 
 .sep { margin: 0 4px; opacity: 0.5; }
 
-/* ── Importance badge ── */
+ 
 .badge {
   display: inline-block;
   font-size: 11px;
@@ -128,8 +175,7 @@
 .importance-major  { background: #fee2e2; color: #991b1b; }
 .importance-normal { background: #dbeafe; color: #1e40af; }
 .importance-minor  { background: #dcfce7; color: #166534; }
-
-/* ── Days left ── */
+ 
 .days-left {
   display: flex;
   flex-direction: column;
@@ -158,7 +204,7 @@
   border-radius: 20px;
 }
 
-/* ── Bar ── */
+ 
 .bar-track {
   height: 8px;
   background: #e8f0fd;
@@ -173,13 +219,13 @@
   transition: width 0.8s ease;
 }
 
-/* ── Deadline text ── */
+ 
 .goal-deadline {
   font-size: 12px;
   color: #94a3b8;
 }
 
-/* ── Card actions ── */
+ 
 .goal-actions {
   display: flex;
   gap: 10px;
@@ -200,7 +246,7 @@
 
 .btn-edit:hover, .btn-delete:hover { opacity: 0.8; }
 
-/* ── Empty state ── */
+ 
 .empty-state {
   text-align: center;
   padding: 60px 24px;
@@ -212,7 +258,7 @@
 .empty-icon { font-size: 48px; margin-bottom: 12px; }
 .empty-state p { margin-bottom: 20px; }
 
-/* ── Modal ── */
+ 
 .modal-overlay {
   position: fixed;
   inset: 0;
@@ -265,7 +311,7 @@
   margin-bottom: 20px;
 }
 
-/* ── Form ── */
+ 
 .goal-form {
   display: flex;
   flex-direction: column;

@@ -5,8 +5,18 @@
       <h1 class="records-title">My Records</h1>
       <p class="records-sub">View and manage your financial records</p>
     </div>
-    <app-add-record-btn (recordCreated)="loadRecords()"></app-add-record-btn>
+    <div class="header-right">
+      <button class="ai-btn" type="button" (click)="showAI.set(!showAI())">AI Analysis</button>
+      <app-add-record-btn (recordCreated)="loadRecords()"></app-add-record-btn>
+    </div>
   </div>
+
+  @if (showAI()) {
+    <div class="ai-box">
+      <span class="ai-label">Advice</span>
+      <p>Емел лох</p>
+    </div>
+  }
 
   @if (loading()) {
     <div class="empty-state">
@@ -58,8 +68,7 @@
           <div class="empty-state"><p>No income records yet.</p></div>
         }
       </div>
-
-      <!-- Expense -->
+ 
       <div class="column">
         <div class="column-header">
           <span class="section-label expense-label">Expense</span>

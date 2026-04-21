@@ -1,21 +1,30 @@
 <section class="goals-page">
 
-  <!-- Header -->
+  
   <div class="goals-header">
     <div>
       <h1 class="goal-title-page">My Goals</h1>
       <p class="goal-sub-page">Track your financial goals and stay on target.</p>
     </div>
-    <button class="add-btn" type="button" (click)="openAddForm()">Add goal</button>
+    <div class="header-right">
+      <button class="ai-btn" type="button" (click)="showAI.set(!showAI())">AI Analysis</button>
+      <button class="add-btn" type="button" (click)="openAddForm()">Add goal</button>
+    </div>
   </div>
 
-  <!-- Goals list -->
+  @if (showAI()) {
+    <div class="ai-box">
+      <span class="ai-label">Advice</span>
+      <p>Емел лох</p>
+    </div>
+  }
+ 
   @if (goals().length > 0) {
     <div class="goals-grid">
       @for (goal of goals(); track goal.id) {
         <div class="goal-card">
 
-          <!-- Top row -->
+         
           <div class="goal-card-top">
             <div class="goal-left">
               <div class="goal-circle">
@@ -53,15 +62,15 @@
             </div>
           </div>
 
-          <!-- Progress bar -->
+       
           <div class="bar-track">
             <div class="bar-fill" [style.width.%]="getProgress(goal)"></div>
           </div>
 
-          <!-- Deadline -->
+        
           <div class="goal-deadline">Deadline: {{ goal.deadline }}</div>
 
-          <!-- Actions -->
+       
           <div class="goal-actions">
             <button type="button" class="btn-edit" (click)="openEditForm(goal)">Edit</button>
             <button type="button" class="btn-delete" (click)="onDelete(goal.id)">Delete</button>
@@ -80,7 +89,7 @@
 
 </section>
 
-<!-- Modal form -->
+ 
 @if (showForm()) {
   <div class="modal-overlay" (click)="closeForm()">
     <div class="modal-box" (click)="$event.stopPropagation()">

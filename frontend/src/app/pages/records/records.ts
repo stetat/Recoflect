@@ -14,6 +14,7 @@ export class Records implements OnInit {
   loading = signal<boolean>(true);
   error = signal<string | null>(null);
   records = signal<RecordItem[]>([]);
+  showAI = signal<boolean>(false);
 
   incomeSort  = signal<'date-asc'|'date-desc'|'amount-asc'|'amount-desc'>('date-desc');
   expenseSort = signal<'date-asc'|'date-desc'|'amount-asc'|'amount-desc'>('date-desc');

@@ -22,6 +22,7 @@ export class Family implements OnInit {
   info = signal<string | null>(null);
   family = signal<FamilyData | null>(null);
   pendingJoinRequest = signal<FamilyJoinRequest | null>(null);
+  showAI = signal<boolean>(false);
 
   createFamilyName = '';
   inviteCodeInput = '';

@@ -6,12 +6,61 @@
   padding: 2rem 3rem 3rem;
 }
 
-/* ─── Header ─── */
+ 
 .records-header {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
   margin-bottom: 0.5rem;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.ai-btn {
+  background: #1a67d8;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  padding: 0.75rem 1rem;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.ai-btn:hover { background: #1a67d8; }
+
+.ai-box {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  background: #badaf1;
+  border: 1px solid #91eff6;
+  border-radius: 12px;
+  padding: 14px 18px;
+  margin-bottom: 1.5rem;
+}
+
+.ai-label {
+  background: #1a67d8;
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+  border-radius: 6px;
+  padding: 2px 7px;
+  white-space: nowrap;
+  margin-top: 2px;
+}
+
+.ai-box p {
+  margin: 0;
+  font-size: 14px;
+  color: #1a67d8;
+  line-height: 1.5;
 }
 
 .records-title {
@@ -27,14 +76,14 @@
   margin: 0 0 2rem;
 }
 
-/* ─── List ─── */
+ 
 .records-list {
   display: flex;
   flex-direction: column;
   gap: 12px;
 }
 
-/* ─── Card ─── */
+ 
 .record-card {
   background: #ffffff;
   border: 1px solid #e2e8f0;
@@ -61,7 +110,7 @@
   gap: 0.75rem;
 }
 
-/* ─── Type badge ─── */
+ 
 .record-type-badge {
   font-size: 11px;
   font-weight: 600;
@@ -79,7 +128,7 @@
   color: #0f172a;
 }
 
-/* ─── Amount ─── */
+ 
 .record-amount {
   font-size: 20px;
   font-weight: 700;
@@ -88,7 +137,7 @@
 .amount-income  { color: #059669; }
 .amount-expense { color: #dc2626; }
 
-/* ─── Meta row ─── */
+ 
 .record-meta {
   display: flex;
   align-items: center;
@@ -110,7 +159,7 @@
   border-radius: 20px;
 }
 
-/* ─── Actions ─── */
+ 
 .record-actions {
   display: flex;
   gap: 8px;
@@ -148,8 +197,7 @@
   background: #fee2e2;
   border-color: #dc2626;
 }
-
-/* ─── Empty state ─── */
+ 
 .empty-state {
   text-align: center;
   padding: 3rem;
@@ -174,7 +222,7 @@
   font-size: 13px;
 }
 
-/* ─── Two columns ─── */
+ 
 .columns-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -207,7 +255,7 @@
   }
 }
 
-/* ─── Section labels ─── */
+ 
 .section-label {
   font-size: 18px;
   font-weight: 700;
@@ -217,8 +265,7 @@
 
 .income-label  { color: #065f46; }
 .expense-label { color: #991b1b; }
-
-/* ─── Responsive ─── */
+ 
 @media (max-width: 700px) {
   .records-page { padding: 1.25rem 1rem 5rem; }
   .records-title { font-size: 28px; }

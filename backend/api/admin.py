@@ -4,8 +4,7 @@ from django.contrib.auth.admin import UserAdmin
 from .forms import CustomUserChangeForm, CustomUserCreationForm
 from .models import BudgetPeriod, Category, Goal, Record, User
 
-
-# Register your models here.
+ 
 class CustomUserAdmin(UserAdmin):
     add_form = CustomUserCreationForm
     form = CustomUserChangeForm

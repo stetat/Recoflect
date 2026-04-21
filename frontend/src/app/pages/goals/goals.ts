@@ -19,6 +19,7 @@ export class Goals implements OnInit {
   loading = signal<boolean>(true);
   error = signal<string | null>(null);
   goals = signal<GoalItem[]>([]);
+  showAI = signal<boolean>(false);
 
   newGoal = {
     title: '',
