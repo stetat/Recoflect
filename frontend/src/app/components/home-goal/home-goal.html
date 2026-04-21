@@ -1,40 +1,41 @@
 <div class="goal-card">
-
   <div class="goal-header">
     <span class="goal-label">Active goal</span>
     <a routerLink="/goals">
       <div class="all-btn">all goals</div>
     </a>
   </div>
-
-  <div class="goal-body">
-
-    <div class="goal-circle">
-      <svg width="64" height="64" viewBox="0 0 64 64">
-        <circle cx="32" cy="32" r="26" stroke="#e8f0fd" stroke-width="6" fill="none"/>
-        <circle cx="32" cy="32" r="26"
-          stroke="#0f5ad1" stroke-width="6" fill="none"
-          stroke-linecap="round"
-          [attr.stroke-dasharray]="163.4"
-          [attr.stroke-dashoffset]="163.4 - (163.4 * goalReach() / 100)"
-          style="transform: rotate(-90deg); transform-origin: 50% 50%;
-                 transition: stroke-dashoffset 0.8s ease;"/>
-      </svg>
-      <div class="goal-pct">{{goalReach() | number:'1.0-0'}}%</div>
-    </div>
-
-    <div class="goal-info">
-      <div class="goal-name">{{goalTitle()}}</div>
-      <div class="goal-amounts">
-        ${{currentBalance()}} <span class="goal-sep">/</span> ${{goalBalance()}}
+  @if (loading()) {
+    <div class="goal-empty-state">Loading goal...</div>
+  } @else if (hasGoal()) {
+    <div class="goal-body">
+      <div class="goal-circle">
+        <svg width="64" height="64" viewBox="0 0 64 64">
+          <circle cx="32" cy="32" r="26" stroke="#e8f0fd" stroke-width="6" fill="none"/>
+          <circle cx="32" cy="32" r="26"
+            stroke="#0f5ad1" stroke-width="6" fill="none"
+            stroke-linecap="round"
+            [attr.stroke-dasharray]="163.4"
+            [attr.stroke-dashoffset]="163.4 - (163.4 * goalReach() / 100)"
+            style="transform: rotate(-90deg); transform-origin: 50% 50%;
+                   transition: stroke-dashoffset 0.8s ease;"/>
+        </svg>
+        <div class="goal-pct">{{ goalReach() | number:'1.0-0' }}%</div>
       </div>
-      <span class="status-badge">On track</span>
+
+      <div class="goal-info">
+        <div class="goal-name">{{ goalTitle() }}</div>
+        <div class="goal-amounts">
+          {{ currentBalance() | number }} <span class="goal-sep">/</span> {{ goalBalance() | number }}
+        </div>
+        <span class="status-badge">In progress</span>
+      </div>
     </div>
 
-  </div>
-
-  <div class="bar-track">
-    <div class="bar-fill" [style.width.%]="goalReach()"></div>
-  </div>
-
+    <div class="bar-track">
+      <div class="bar-fill" [style.width.%]="goalReach()"></div>
+    </div>
+  } @else {
+    <div class="goal-empty-state">No goals yet. Add your first one below.</div>
+  }
 </div>

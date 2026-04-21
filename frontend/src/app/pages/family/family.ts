@@ -18,6 +18,10 @@ import {
 export class Family implements OnInit {
   loading = signal(true);
   submitting = signal(false);
+  copyingInviteCode = signal(false);
+  removingMemberId = signal<string | null>(null);
+  removeMemberName = signal<string | null>(null);
+  confirmingLeaveFamily = signal(false);
   error = signal<string | null>(null);
   info = signal<string | null>(null);
   family = signal<FamilyData | null>(null);
@@ -163,17 +167,44 @@ export class Family implements OnInit {
     return 'safe';
   }
 
-  removeMember(id: string): void {
+  promptRemoveMember(id: string): void {
+    const member = this.members().find(currentMember => currentMember.id === id);
+    const memberName = member ? this.getMemberName(member) : 'this family member';
+    this.removingMemberId.set(id);
+    this.removeMemberName.set(memberName);
+  }
+
+  cancelRemoveMember(): void {
+    this.removingMemberId.set(null);
+    this.removeMemberName.set(null);
+  }
+
+  confirmRemoveMember(): void {
+    const id = this.removingMemberId();
+    if (!id) {
+      return;
+    }
+
     this.familyService.removeMember(id).subscribe({
       next: family => {
         this.family.set(family);
         this.error.set(null);
         this.info.set(null);
+        this.cancelRemoveMember();
       },
       error: err => {
         this.error.set(err?.error?.detail ?? 'Failed to remove member.');
+        this.cancelRemoveMember();
       },
     });
+  }
+
+  promptLeaveFamily(): void {
+    this.confirmingLeaveFamily.set(true);
+  }
+
+  cancelLeaveFamily(): void {
+    this.confirmingLeaveFamily.set(false);
   }
 
   generateNewCode(): void {
@@ -189,6 +220,24 @@ export class Family implements OnInit {
     });
   }
 
+  copyInviteCode(): void {
+    const inviteCode = this.inviteCode();
+    if (!inviteCode || this.copyingInviteCode()) {
+      return;
+    }
+
+    this.copyingInviteCode.set(true);
+
+    navigator.clipboard.writeText(inviteCode).then(() => {
+      this.info.set('Invite code copied.');
+      this.error.set(null);
+      this.copyingInviteCode.set(false);
+    }).catch(() => {
+      this.error.set('Failed to copy invite code.');
+      this.copyingInviteCode.set(false);
+    });
+  }
+
   leaveFamily(): void {
     this.familyService.leaveFamily().subscribe({
       next: () => {
@@ -196,9 +245,11 @@ export class Family implements OnInit {
         this.pendingJoinRequest.set(null);
         this.error.set(null);
         this.info.set(null);
+        this.cancelLeaveFamily();
       },
       error: err => {
         this.error.set(err?.error?.detail ?? 'Failed to leave family.');
+        this.cancelLeaveFamily();
       },
     });
   }
