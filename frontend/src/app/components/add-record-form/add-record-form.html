@@ -28,6 +28,10 @@
                 <option [value]="cat.id">{{ cat.title }}</option>
               }
             </select>
+          } @else {
+            <button type="button" class="basic-btn" (click)="addBasicCategories()" [disabled]="addingBasic">
+              {{ addingBasic ? 'Adding...' : '+ Add basic categories' }}
+            </button>
           }
           <div class="new-category-row">
             <input
