@@ -1,4 +1,4 @@
-import {Component, model, OnInit, output, signal} from '@angular/core';
+import {Component, inject, model, OnInit, output, signal} from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Category, RecordService } from '../../services/record-service';
@@ -80,6 +80,7 @@ export class AddRecordForm implements OnInit {
 
   onSubmit() {
     if (!this.record.category || !this.record.amount) return;
+
 
     this.recordService.createRecord({
       type: this.record.type,

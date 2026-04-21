@@ -1,5 +1,6 @@
-import {Component, computed, signal} from '@angular/core';
+import {Component, computed, inject, signal} from '@angular/core';
 import { RouterLink } from  '@angular/router';
+import {RecordService} from '../../services/record-service';
  @Component({
   selector: 'app-home-records',
   imports: [],
@@ -7,12 +8,14 @@ import { RouterLink } from  '@angular/router';
   styleUrl: './home-records.css',
 })
 export class HomeRecords {
-  dayStart = signal<string>("27");
-  monthStart = signal<string>("03");
-  dayEnd = signal<string>("04");
-  monthEnd = signal<string>("04");
+   recordService = inject(RecordService);
 
-  income = signal<number>(53587);
-  expense = signal<number>(12587);
-  net = computed(() => this.income() - this.expense());
+  ngOnInit() {
+    this.recordService.getSummary();
+  }
+  dateStart = this.recordService.dateStart();
+  dateEnd = this.recordService.dateEnd();
+  income = computed(()=> this.recordService.income() ?? 0);
+  expense = computed(()=> this.recordService.expense() ?? 0);
+  net = computed(()=> this.recordService.net() ?? 0);
 }

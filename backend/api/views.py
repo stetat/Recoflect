@@ -1,9 +1,11 @@
+from datetime import timedelta
+
 from django.contrib.auth import get_user_model
 from django.db import transaction
-from django.db.models import Q
+from django.db.models import Q, Sum
 from django.utils import timezone
 from rest_framework import generics, status, viewsets
-from rest_framework.decorators import api_view, permission_classes
+from rest_framework.decorators import action, api_view, permission_classes
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 from rest_framework_simplejwt.tokens import RefreshToken
@@ -70,6 +72,33 @@ class CategoryViewSet(viewsets.ModelViewSet):
 class RecordViewSet(viewsets.ModelViewSet):
     serializer_class = RecordSerializer
     permission_classes = [IsAuthenticated]
+
+    @action(detail=False, methods=["get"])
+    def summary(self, request):
+        today = timezone.now().date()
+        start_of_week = today - timedelta(days=today.weekday())
+        end_of_week = start_of_week + timedelta(days=6)
+
+        user_records = request.user.records.filter(
+            date__range=[start_of_week, end_of_week]
+        )
+
+        income_total = (
+            user_records.income().aggregate(Sum("amount"))["amount__sum"] or 0
+        )
+        expense_total = (
+            user_records.expenses().aggregate(Sum("amount"))["amount__sum"] or 0
+        )
+        net = income_total - expense_total
+
+        return Response(
+            {
+                "income": income_total,
+                "expense": expense_total,
+                "net": net,
+                "period": {"start": start_of_week, "end": end_of_week},
+            }
+        )
 
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)

@@ -8,7 +8,7 @@
   </div>
 
   <div class="period">
-    {{dayStart()}}.{{monthStart()}} — {{dayEnd()}}.{{monthEnd()}}
+    {{dateStart}} — {{dateEnd}}
   </div>
 
   <div class="stats-row">
@@ -26,7 +26,7 @@
     <div>
       <div class="net-label">Net balance</div>
       <div class="net-value">
-        @if(net() >= 0) { +${{net()}} } @else { −${{net() * -1}} }
+        @if(+net() >= 0) { +${{+net()}} } @else { −${{+net() * -1}} }
       </div>
     </div>
     <svg width="28" height="28" fill="none" viewBox="0 0 24 24">

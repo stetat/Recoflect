@@ -10,7 +10,8 @@ export class AuthService {
   private apiUrl = 'http://localhost:8000/api';
   private accessKey = 'auth_token';
   private refreshKey = 'refresh_token';
-
+  firstName = signal<string | null>(localStorage.getItem('firstName'));
+  isLoggedIn = signal<boolean>(this.checkInitialLoginState());
   constructor(private http: HttpClient, private router: Router) { }
 
   register(userData: any): Observable<any> {
@@ -24,10 +25,12 @@ export class AuthService {
   }
 
   login(credentials: any): Observable<any> {
-    return this.http.post<{access: string, refresh: string}>(`${this.apiUrl}/login/`, credentials).pipe(
+    return this.http.post<{access: string, refresh: string, first_name: string}>(`${this.apiUrl}/login/`, credentials).pipe(
       tap(res => {
         this.setAccessToken(res.access);
         this.setRefreshToken(res['refresh']);
+        localStorage.setItem('firstName', res.first_name);
+        this.firstName.set(res.first_name);
         this.isLoggedIn.set(true);
       })
     )
@@ -36,8 +39,21 @@ export class AuthService {
   logout(): void {
     localStorage.removeItem(this.accessKey);
     localStorage.removeItem(this.refreshKey);
+    localStorage.removeItem('first_name');
     this.isLoggedIn.set(false);
     void this.router.navigate(['login']);
+  }
+
+  refreshToken(token: string): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/token/refresh/`, {refresh: token}).pipe(
+      tap(res => {
+        this.setAccessToken(res.access);
+
+        if(res.refresh) {
+          this.setRefreshToken(res.refresh);
+        }
+      })
+    );
   }
 
   public setAccessToken(token: string): void {
@@ -60,6 +76,8 @@ export class AuthService {
     return localStorage.getItem(this.accessKey) !== null;
   }
 
-  public isLoggedIn = signal<boolean>(this.checkInitialLoginState());
 
+  private getName() {
+    return this.http.get<String>(`${this.apiUrl}/getName/`)
+  }
 }

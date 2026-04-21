@@ -14,10 +14,10 @@ from .views import (
     family_detail_view,
     family_join_view,
     family_leave_view,
-    family_request_approve_view,
-    family_request_reject_view,
     family_regenerate_invite_view,
     family_remove_member_view,
+    family_request_approve_view,
+    family_request_reject_view,
 )
 
 router = DefaultRouter()
@@ -38,7 +38,9 @@ urlpatterns = [
         family_regenerate_invite_view,
         name="family_regenerate_invite",
     ),
-    path("family/remove-member/", family_remove_member_view, name="family_remove_member"),
+    path(
+        "family/remove-member/", family_remove_member_view, name="family_remove_member"
+    ),
     path(
         "family/requests/<uuid:request_id>/approve/",
         family_request_approve_view,
