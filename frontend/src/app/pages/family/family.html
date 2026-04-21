@@ -1,0 +1,132 @@
+<section class="family-page">
+  <div class="family-header">
+    <div>
+      <h1>Family Dashboard</h1>
+      <p>Manage household members, spending limits, and weekly results.</p>
+    </div>
+
+    <div class="invite-box">
+      <span class="label">Invite code</span>
+      <strong>{{ inviteCode() }}</strong>
+      <button type="button" (click)="generateNewCode()">Generate new</button>
+    </div>
+  </div>
+
+  <div class="summary-grid">
+    <article class="summary-card">
+      <h3>Family name</h3>
+      <p>{{ familyName() }}</p>
+    </article>
+
+    <article class="summary-card">
+      <h3>Parents' balance</h3>
+      <p>{{ totalParentBalance() | number }}</p>
+    </article>
+
+    <article class="summary-card">
+      <h3>Children's expenses</h3>
+      <p>{{ totalChildExpense() | number }}</p>
+    </article>
+  </div>
+
+  <section class="members-section">
+    <div class="section-title">
+      <h2>Parents</h2>
+      <span>{{ parents().length }}</span>
+    </div>
+
+    <div class="members-grid">
+      @for (member of parents(); track member.id) {
+        <article class="member-card">
+          <div class="member-top">
+            <div>
+              <h3>{{ member.username }}</h3>
+              <span class="role parent-role">Parent</span>
+            </div>
+
+            <button type="button" class="delete-btn" (click)="removeMember(member.id)">
+              Remove
+            </button>
+          </div>
+
+          <div class="stats">
+            <div>
+              <span>Income</span>
+              <strong>{{ member.weeklyIncome | number }}</strong>
+            </div>
+            <div>
+              <span>Expense</span>
+              <strong>{{ member.weeklyExpense | number }}</strong>
+            </div>
+            <div>
+              <span>Balance</span>
+              <strong>{{ getBalance(member) | number }}</strong>
+            </div>
+          </div>
+        </article>
+      } @empty {
+        <p class="empty-text">No parents in the family yet.</p>
+      }
+    </div>
+  </section>
+
+  <section class="members-section">
+    <div class="section-title">
+      <h2>Children</h2>
+      <span>{{ children().length }}</span>
+    </div>
+
+    <div class="members-grid">
+      @for (member of children(); track member.id) {
+        <article class="member-card">
+          <div class="member-top">
+            <div>
+              <h3>{{ member.username }}</h3>
+              <span class="role child-role">Child</span>
+            </div>
+
+            <button type="button" class="delete-btn" (click)="removeMember(member.id)">
+              Remove
+            </button>
+          </div>
+
+          <div class="stats">
+            <div>
+              <span>Income</span>
+              <strong>{{ member.weeklyIncome | number }}</strong>
+            </div>
+            <div>
+              <span>Expense</span>
+              <strong>{{ member.weeklyExpense | number }}</strong>
+            </div>
+            <div>
+              <span>Balance</span>
+              <strong>{{ getBalance(member) | number }}</strong>
+            </div>
+            <div>
+              <span>Weekly limit</span>
+              <strong>{{ member.limit ?? 0 | number }}</strong>
+            </div>
+          </div>
+
+          <div class="limit-progress">
+            <div class="progress-label">
+              <span>Spent from limit</span>
+              <span>{{ getLimitProgress(member) | number:'1.0-0' }}%</span>
+            </div>
+
+            <div class="progress-bar">
+              <div
+                class="progress-fill"
+                [class]="getProgressClass(member)"
+                [style.width.%]="getLimitProgress(member)">
+              </div>
+            </div>
+          </div>
+        </article>
+      } @empty {
+        <p class="empty-text">No children in the family yet.</p>
+      }
+    </div>
+  </section>
+</section>

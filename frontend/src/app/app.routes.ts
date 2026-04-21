@@ -6,6 +6,7 @@ import {Goals} from './pages/goals/goals';
 import {Contacts} from './components/contacts/contacts';
 import {Login} from './pages/login/login';
 import {Register} from './pages/register/register';
+import { Family } from './pages/family/family';
  
  
 
@@ -20,4 +21,5 @@ export const routes: Routes = [
   { path: 'register', component: Register},
   { path: 'records', component: Records },          
   { path: 'goals', component: Goals }, 
+  { path: 'family', component: Family },
 ];
