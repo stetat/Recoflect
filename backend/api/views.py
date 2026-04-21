@@ -1,14 +1,16 @@
 from django.contrib.auth import get_user_model
+from django.utils import timezone
 from rest_framework import generics, status, viewsets
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework_simplejwt.views import TokenObtainPairView
 
-from .models import Category, Record
+from .models import Category, Goal, Record
 from .serializers import (
     CategorySerializer,
     CustomTokenObtainPairSerializer,
+    GoalSerializer,
     RecordSerializer,
     RegisterSerializer,
 )
@@ -71,3 +73,24 @@ class RecordViewSet(viewsets.ModelViewSet):
         ctx = super().get_serializer_context()
         ctx["request"] = self.request
         return ctx
+
+
+class GoalViewSet(viewsets.ModelViewSet):
+    serializer_class = GoalSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        queryset = Goal.objects.filter(user=self.request.user).order_by("deadline", "title")
+
+        importance = self.request.query_params.get("importance")
+        overdue = self.request.query_params.get("overdue")
+
+        if importance:
+            queryset = queryset.filter(importance=importance)
+        if overdue == "true":
+            queryset = queryset.filter(deadline__lt=timezone.now().date())
+
+        return queryset
+
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)

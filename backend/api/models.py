@@ -1,8 +1,8 @@
 import uuid
-from time import timezone
 
 from django.contrib.auth.models import AbstractUser, UserManager
 from django.db import models
+from django.utils import timezone
 
 from .utils import generate_family_invite_code
 
@@ -117,6 +117,7 @@ class Goal(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4)
     title = models.CharField(max_length=50, unique=True)
     amount = models.IntegerField()
+    current_amount = models.IntegerField(default=0)
     deadline = models.DateField()
     importance = models.IntegerField(choices=Importance, default=Importance.NORMAL)
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="goals")

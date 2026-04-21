@@ -2,7 +2,7 @@ from django.contrib.auth import get_user_model
 from rest_framework import serializers
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 
-from .models import Category, Record
+from .models import Category, Goal, Record
 
 User = get_user_model()
 
@@ -71,3 +71,49 @@ class RecordSerializer(serializers.ModelSerializer):
             "date",
             "reflection",
         ]
+
+
+class GoalSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Goal
+        fields = [
+            "id",
+            "title",
+            "amount",
+            "current_amount",
+            "deadline",
+            "importance",
+        ]
+
+    def validate_title(self, value):
+        queryset = Goal.objects.filter(title=value)
+        if self.instance is not None:
+            queryset = queryset.exclude(pk=self.instance.pk)
+        if queryset.exists():
+            raise serializers.ValidationError("Goal with this title already exists.")
+        return value
+
+    def validate(self, attrs):
+        amount = attrs.get("amount", getattr(self.instance, "amount", None))
+        current_amount = attrs.get(
+            "current_amount", getattr(self.instance, "current_amount", 0)
+        )
+
+        if amount is not None and amount <= 0:
+            raise serializers.ValidationError({"amount": "Amount must be greater than 0."})
+
+        if current_amount is not None and current_amount < 0:
+            raise serializers.ValidationError(
+                {"current_amount": "Current amount cannot be negative."}
+            )
+
+        if (
+            amount is not None
+            and current_amount is not None
+            and current_amount > amount
+        ):
+            raise serializers.ValidationError(
+                {"current_amount": "Current amount cannot be greater than target amount."}
+            )
+
+        return attrs
