@@ -49,6 +49,27 @@ class Family(models.Model):
         return self.family_name
 
 
+class FamilyJoinRequest(models.Model):
+    class Status(models.IntegerChoices):
+        PENDING = 1, "Pending"
+        APPROVED = 2, "Approved"
+        REJECTED = 3, "Rejected"
+
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4)
+    family = models.ForeignKey(
+        Family, on_delete=models.CASCADE, related_name="join_requests"
+    )
+    user = models.ForeignKey(
+        User, on_delete=models.CASCADE, related_name="family_join_requests"
+    )
+    desired_role = models.IntegerField(choices=User.Role.choices)
+    status = models.IntegerField(choices=Status.choices, default=Status.PENDING)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ["-created_at"]
+
+
 class Category(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4)
     title = models.CharField(max_length=60, unique=True)
