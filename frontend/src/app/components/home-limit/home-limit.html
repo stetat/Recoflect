@@ -2,28 +2,54 @@
 
   <div class="limit-header">
     <span class="limit-label">Weekly limit</span>
-    @if(budgetLimit() > 80.0) {
-      <span class="status-badge status-warn">Watch out</span>
-    } @else if(budgetLimit() > 40.0) {
-      <span class="status-badge status-ok">Well planned</span>
-    } @else {
-      <span class="status-badge status-save">Saving well</span>
+    @if (budget()?.limit_amount) {
+      @if (percent() > 80) {
+        <span class="status-badge status-warn">Watch out</span>
+      } @else if (percent() > 40) {
+        <span class="status-badge status-ok">Well planned</span>
+      } @else {
+        <span class="status-badge status-save">Saving well</span>
+      }
     }
   </div>
 
-  <div class="bar-track">
-    <div class="bar-fill" [style.width.%]="budgetLimit()"></div>
-  </div>
+  @if (loading()) {
+    <p class="limit-pct">Loading...</p>
+  } @else if (!budget()?.limit_amount) {
+    <p class="limit-no-limit">No weekly limit set</p>
+    <button class="set-limit-btn" type="button" (click)="showForm.set(true)">Set limit</button>
+  } @else {
+    <div class="bar-track">
+      <div class="bar-fill" [class.bar-warn]="percent() > 80" [style.width.%]="percent()"></div>
+    </div>
+    <div class="limit-footer">
+      <span class="limit-pct">{{ budget()!.actual_spent }} / {{ budget()!.limit_amount }} spent</span>
+      @if (percent() > 80) {
+        <span class="limit-caption warn-text">Watch your spending</span>
+      } @else if (percent() > 40) {
+        <span class="limit-caption ok-text">You still have room</span>
+      } @else {
+        <span class="limit-caption save-text">You're saving well</span>
+      }
+    </div>
+    <button class="set-limit-btn" type="button" (click)="showForm.set(!showForm())">
+      {{ showForm() ? 'Cancel' : 'Change limit' }}
+    </button>
+  }
 
-  <div class="limit-footer">
-    <span class="limit-pct">{{budgetLimit()}}% of budget used</span>
-    @if(budgetLimit() > 80.0) {
-      <span class="limit-caption warn-text">Watch your spending</span>
-    } @else if(budgetLimit() > 40.0) {
-      <span class="limit-caption ok-text">You still have room</span>
-    } @else {
-      <span class="limit-caption save-text">You're saving decently</span>
-    }
-  </div>
+  @if (showForm()) {
+    <div class="limit-form">
+      <input
+        type="number"
+        [(ngModel)]="newLimit"
+        placeholder="Enter weekly limit"
+        min="1"
+        class="limit-input"
+      />
+      <button class="save-btn" type="button" (click)="saveLimit()" [disabled]="saving()">
+        {{ saving() ? 'Saving...' : 'Save' }}
+      </button>
+    </div>
+  }
 
 </div>
