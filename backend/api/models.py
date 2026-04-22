@@ -1,16 +1,20 @@
+import json
+import os
 import uuid
 from abc import ABC, abstractmethod
-import json
 from json import JSONDecodeError
 from urllib.error import HTTPError, URLError
 from urllib.request import Request, urlopen
 
+import certifi
 from django.conf import settings
 from django.contrib.auth.models import AbstractUser, UserManager
 from django.db import models
 from django.utils import timezone
 
 from .utils import generate_family_invite_code
+
+os.environ["SSL_CERT_FILE"] = certifi.where()
 
 
 class UserQuerySet(models.QuerySet):
