@@ -1,0 +1,745 @@
+{
+  "info": {
+    "_postman_id": "a9bf203f-dc30-4674-abb4-f58f140a0fe5",
+    "name": "Recoflect",
+    "description": "API endpoints for Recoflect",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "45962689",
+    "_collection_link": "https://go.postman.co/collection/45962689-a9bf203f-dc30-4674-abb4-f58f140a0fe5?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "Register",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const jsonData = pm.response.json();",
+                  "",
+                  "if(jsonData.access && jsonData.refresh) {",
+                  "    pm.environment.set(\"accessToken\", jsonData.access);",
+                  "    pm.environment.set(\"refreshToken\", jsonData.refresh);",
+                  "    console.log(\"Tokens have been saved\");",
+                  "",
+                  "}"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "username",
+                  "value": "abc11",
+                  "type": "text",
+                  "uuid": "9d9a7043-bf42-4b1e-ad58-0c8b727c20cd"
+                },
+                {
+                  "key": "password",
+                  "value": "abc",
+                  "type": "text",
+                  "uuid": "78264dba-fd3d-4f3b-9a73-2e4c6f832610"
+                },
+                {
+                  "key": "first_name",
+                  "value": "abc",
+                  "type": "text",
+                  "uuid": "8260a223-07cb-470b-8608-b082eff80c7b"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{base_url}}/api/auth/register/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "auth",
+                "register",
+                ""
+              ],
+              "query": [
+                {
+                  "key": "username",
+                  "value": "abc",
+                  "type": "text",
+                  "disabled": true
+                },
+                {
+                  "key": "password",
+                  "value": "abc",
+                  "type": "text",
+                  "disabled": true
+                },
+                {
+                  "key": "email",
+                  "value": "a@a.com",
+                  "type": "text",
+                  "disabled": true
+                },
+                {
+                  "key": "first_name",
+                  "value": "abc",
+                  "type": "text",
+                  "disabled": true
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Login",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const jsonData = pm.response.json();",
+                  "",
+                  "if(jsonData.access && jsonData.refresh) {",
+                  "    pm.environment.set(\"accessToken\", jsonData.access);",
+                  "    pm.environment.set(\"refreshToken\", jsonData.refresh);",
+                  "    console.log(\"Tokens have been saved\");",
+                  "",
+                  "}"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "username",
+                  "value": "abc1",
+                  "type": "text",
+                  "uuid": "3e8532f7-e049-4a8f-ab16-4580254d68e4"
+                },
+                {
+                  "key": "password",
+                  "value": "abc",
+                  "type": "text",
+                  "uuid": "183357ac-ec4e-4e0f-b6d7-fab060d037cd"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{base_url}}/api/auth/login/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "auth",
+                "login",
+                ""
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Refresh",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const jsonData = pm.response.json();",
+                  "",
+                  "if(jsonData.access && jsonData.refresh) {",
+                  "    pm.environment.set(\"accessToken\", jsonData.access);",
+                  "    pm.environment.set(\"refreshToken\", jsonData.refresh);",
+                  "    console.log(\"Tokens have been saved\");",
+                  "",
+                  "}"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "refresh",
+                  "value": "{{refreshToken}}",
+                  "type": "text",
+                  "uuid": "3e8532f7-e049-4a8f-ab16-4580254d68e4"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{base_url}}/api/auth/token/refresh/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "auth",
+                "token",
+                "refresh",
+                ""
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Logout",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "refresh",
+                  "value": "{{refreshToken}}",
+                  "type": "text",
+                  "uuid": "3e8532f7-e049-4a8f-ab16-4580254d68e4"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{base_url}}/api/auth/logout/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "auth",
+                "logout",
+                ""
+              ]
+            }
+          },
+          "response": []
+        }
+      ],
+      "description": "auth endpoints"
+    },
+    {
+      "name": "Goals",
+      "item": [
+        {
+          "name": "Get All Goals",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": []
+            },
+            "url": {
+              "raw": "{{base_url}}/api/goals/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "goals",
+                ""
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create Goal",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "title",
+                  "value": "a new car",
+                  "type": "text",
+                  "uuid": "a6014bf9-fe6b-4316-ad83-17f20dbf0197"
+                },
+                {
+                  "key": "amount",
+                  "value": "123000",
+                  "type": "text",
+                  "uuid": "4bdccb57-57e4-4109-8b58-2f8603158198"
+                },
+                {
+                  "key": "deadline",
+                  "value": "2026-09-09",
+                  "type": "text",
+                  "uuid": "f144f046-9689-4d62-9c70-0a40e1bf634c"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{base_url}}/api/goals/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "goals",
+                ""
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update Goal",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "title",
+                  "value": "a new car!",
+                  "type": "text",
+                  "uuid": "a6014bf9-fe6b-4316-ad83-17f20dbf0197"
+                },
+                {
+                  "key": "amount",
+                  "value": "999",
+                  "type": "text",
+                  "uuid": "4bdccb57-57e4-4109-8b58-2f8603158198"
+                },
+                {
+                  "key": "deadline",
+                  "value": "2026-09-09",
+                  "type": "text",
+                  "uuid": "f144f046-9689-4d62-9c70-0a40e1bf634c"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{base_url}}/api/goals/68a41aea-4b67-42a2-868e-caf93b796cf9/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "goals",
+                "68a41aea-4b67-42a2-868e-caf93b796cf9",
+                ""
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Goal",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": []
+            },
+            "url": {
+              "raw": "{{base_url}}/api/goals/68a41aea-4b67-42a2-868e-caf93b796cf9/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "goals",
+                "68a41aea-4b67-42a2-868e-caf93b796cf9",
+                ""
+              ]
+            }
+          },
+          "response": []
+        }
+      ],
+      "description": "endpoints for goals"
+    },
+    {
+      "name": "Records",
+      "item": [
+        {
+          "name": "Get All Records",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/records/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "records",
+                ""
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create Record",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "category",
+                  "value": "7f7f832d-78d7-48e1-9f51-6ba4df58a39a",
+                  "type": "text",
+                  "uuid": "75fed9dc-d810-41d4-bef8-82c1f7fc4bb6"
+                },
+                {
+                  "key": "amount",
+                  "value": "999",
+                  "type": "text",
+                  "uuid": "324ac318-5909-45d8-9d4d-9c15d9e7e5ef"
+                },
+                {
+                  "key": "date",
+                  "value": "2026-03-03",
+                  "type": "text",
+                  "uuid": "20e77d7e-c957-461e-8894-db36bcb8f668"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{base_url}}/api/records/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "records",
+                ""
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Record",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": []
+            },
+            "url": {
+              "raw": "{{base_url}}/api/records/fef1afe5-fea6-48d8-b755-41b8d2fda4fb/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "records",
+                "fef1afe5-fea6-48d8-b755-41b8d2fda4fb",
+                ""
+              ]
+            }
+          },
+          "response": []
+        }
+      ],
+      "description": "endpoints for records"
+    },
+    {
+      "name": "Categories",
+      "item": [
+        {
+          "name": "Get Categories",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/categories/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "categories",
+                ""
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create Category",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "title",
+                  "value": "Skincare1",
+                  "type": "text",
+                  "uuid": "5d93c7f3-7228-4502-9a93-d693d2c6b418"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{base_url}}/api/categories/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "categories",
+                ""
+              ]
+            }
+          },
+          "response": []
+        }
+      ],
+      "description": "endpoints for Categories"
+    },
+    {
+      "name": "Family",
+      "item": [
+        {
+          "name": "New Request",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/family/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "family",
+                ""
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create Family",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "family_name",
+                  "value": "Big family",
+                  "type": "text",
+                  "uuid": "05938556-82a6-4041-84ee-de29a05b828e"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{base_url}}/api/family/create/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "family",
+                "create",
+                ""
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Join Family",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "invite_code",
+                  "value": "MT3NTA",
+                  "type": "text",
+                  "uuid": "05938556-82a6-4041-84ee-de29a05b828e"
+                },
+                {
+                  "key": "desired_role",
+                  "value": "1",
+                  "type": "text",
+                  "uuid": "5b2c5116-7fdc-4231-8003-2411b6de13be"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{base_url}}/api/family/join/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "family",
+                "join",
+                ""
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Regenerate Invite Code",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": []
+            },
+            "url": {
+              "raw": "{{base_url}}/api/family/regenerate-invite/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "family",
+                "regenerate-invite",
+                ""
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Leave Family",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": []
+            },
+            "url": {
+              "raw": "{{base_url}}/api/family/leave/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "family",
+                "leave",
+                ""
+              ]
+            }
+          },
+          "response": []
+        }
+      ],
+      "description": "endpoints for Family"
+    },
+    {
+      "name": "Ai",
+      "item": [
+        {
+          "name": "Get AI advice",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "prompt",
+                  "value": "Hello!",
+                  "type": "text",
+                  "uuid": "360e1921-7160-44a3-bb02-cf369a0183e4"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{base_url}}/api/advice/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "advice",
+                ""
+              ]
+            }
+          },
+          "response": []
+        }
+      ],
+      "description": "endpoints for AI"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{accessToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    }
+  ]
+}
