@@ -2,9 +2,9 @@ from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 
 from .forms import CustomUserChangeForm, CustomUserCreationForm
-from .models import BudgetPeriod, Category, Goal, Record, User
+from .models import BudgetPeriod, Category, Family, Goal, Record, User
 
- 
+
 class CustomUserAdmin(UserAdmin):
     add_form = CustomUserCreationForm
     form = CustomUserChangeForm
@@ -17,4 +17,4 @@ class CustomUserAdmin(UserAdmin):
 
 
 admin.site.register(User, CustomUserAdmin)
-admin.site.register([Record, Goal, Category, BudgetPeriod])
+admin.site.register([Record, Goal, Category, BudgetPeriod, Family])

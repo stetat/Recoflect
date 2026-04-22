@@ -8,6 +8,7 @@ from rest_framework import generics, status, viewsets
 from rest_framework.decorators import action, api_view, permission_classes
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
+from rest_framework.views import APIView
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework_simplejwt.views import TokenObtainPairView
 
@@ -20,7 +21,7 @@ from .models import (
     Record,
     User,
     ai_abstract,
-    gemini_ai,
+    groq_ai,
 )
 from .serializers import (
     CategorySerializer,
@@ -36,11 +37,28 @@ from .serializers import (
 from .utils import generate_family_invite_code
 
 User = get_user_model()
-ai_bot: ai_abstract = gemini_ai()
+ai_bot: ai_abstract = groq_ai()
 
 
 def serialize_family(family, request):
     return FamilySerializer(family, context={"request": request}).data
+
+
+class LogoutView(APIView):
+    permission_classes = (IsAuthenticated,)
+
+    def post(self, request):
+        try:
+            refresh_token = request.data["refresh"]
+            token = RefreshToken(refresh_token)
+            token.blacklist()
+
+            return Response(
+                {"message": "Successfully logged out"},
+                status=status.HTTP_205_RESET_CONTENT,
+            )
+        except Exception:
+            return Response({"error": "Invalid token or already blacklisted"})
 
 
 @api_view(["POST"])
@@ -77,7 +95,8 @@ def budget_view(request):
                 user=request.user,
                 type=Record.Type.EXPENSE,
                 date__range=(start_of_week, end_of_week),
-            ).aggregate(total=Sum("amount"))["total"] or 0
+            ).aggregate(total=Sum("amount"))["total"]
+            or 0
         )
 
     def build_response(budget):
@@ -87,11 +106,13 @@ def budget_view(request):
             if budget.limit_amount
             else 0
         )
-        return Response({
-            "limit_amount": budget.limit_amount,
-            "actual_spent": actual_spent,
-            "percent_used": min(percent_used, 100),
-        })
+        return Response(
+            {
+                "limit_amount": budget.limit_amount,
+                "actual_spent": actual_spent,
+                "percent_used": min(percent_used, 100),
+            }
+        )
 
     if request.method == "GET":
         budget = BudgetPeriod.objects.filter(
@@ -100,7 +121,13 @@ def budget_view(request):
             end_date=end_of_week,
         ).first()
         if not budget:
-            return Response({"limit_amount": None, "actual_spent": get_actual_spent(), "percent_used": 0})
+            return Response(
+                {
+                    "limit_amount": None,
+                    "actual_spent": get_actual_spent(),
+                    "percent_used": 0,
+                }
+            )
         return build_response(budget)
 
     limit_amount = request.data.get("limit_amount")
@@ -109,7 +136,10 @@ def budget_view(request):
         if limit_amount <= 0:
             raise ValueError
     except (TypeError, ValueError):
-        return Response({"detail": "limit_amount must be a positive integer."}, status=status.HTTP_400_BAD_REQUEST)
+        return Response(
+            {"detail": "limit_amount must be a positive integer."},
+            status=status.HTTP_400_BAD_REQUEST,
+        )
 
     budget_qs = BudgetPeriod.objects.filter(
         user=request.user,

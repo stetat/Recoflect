@@ -59,6 +59,7 @@ INSTALLED_APPS = [
     "corsheaders",
     "api",
     "rest_framework",
+    "rest_framework_simplejwt.token_blacklist",
 ]
 
 MIDDLEWARE = [
@@ -177,3 +178,7 @@ GEMINI_API_URL = os.getenv(
     "https://generativelanguage.googleapis.com/v1beta/models",
 )
 GEMINI_MODEL = os.getenv("GEMINI_MODEL", "gemini-2.5-flash")
+
+
+GROQ_API_KEY = os.getenv("GROQ_API_KEY")
+GROQ_API_URL = os.getenv("GROQ_API_URL")

@@ -8,6 +8,7 @@ from .views import (
     CategoryViewSet,
     CustomTokenObtainPairView,
     GoalViewSet,
+    LogoutView,
     RecordViewSet,
     RegisterView,
     advice_view,
@@ -28,9 +29,10 @@ router.register("records", RecordViewSet, basename="record")
 router.register("goals", GoalViewSet, basename="goal")
 
 urlpatterns = [
-    path("register/", RegisterView.as_view(), name="auth_register"),
-    path("login/", CustomTokenObtainPairView.as_view(), name="token_obtain_pair"),
-    path("token/refresh/", TokenRefreshView.as_view(), name="token_refresh"),
+    path("auth/register/", RegisterView.as_view(), name="auth_register"),
+    path("auth/login/", CustomTokenObtainPairView.as_view(), name="token_obtain_pair"),
+    path("auth/token/refresh/", TokenRefreshView.as_view(), name="token_refresh"),
+    path("auth/logout/", LogoutView.as_view(), name="auth_logout"),
     path("advice/", advice_view, name="advice"),
     path("budget/", budget_view, name="budget"),
     path("family/", family_detail_view, name="family_detail"),

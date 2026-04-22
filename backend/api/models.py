@@ -11,6 +11,7 @@ from django.conf import settings
 from django.contrib.auth.models import AbstractUser, UserManager
 from django.db import models
 from django.utils import timezone
+from openai import OpenAI
 
 from .utils import generate_family_invite_code
 
@@ -190,6 +191,36 @@ class ai_abstract(ABC):
     @abstractmethod
     def prompt(self, text: str) -> str:
         raise NotImplementedError
+
+
+class groq_ai(ai_abstract):
+    system_prompt = (
+        "You are an AI assistant inside a family finance app. "
+        "Give concise, practical, supportive financial advice based on the user's data."
+    )
+
+    def __init__(self):
+        api_key = settings.GROQ_API_KEY
+        url = settings.GROQ_API_URL
+
+        if not api_key:
+            raise ValueError("GROQ_API_KEY is not configured.")
+
+        self.client = OpenAI(api_key=api_key, base_url=url)
+
+    def prompt(self, text: str) -> str:
+        # The library handles the JSON encoding for you
+        response = self.client.chat.completions.create(
+            model="groq/compound",  # Example supported Groq model
+            messages=[
+                {"role": "system", "content": self.system_prompt},
+                {"role": "user", "content": text},
+            ],
+            temperature=0.2,
+        )
+
+        # Access the text via the choices attribute
+        return response.choices[0].message.content
 
 
 class gemini_ai(ai_abstract):
