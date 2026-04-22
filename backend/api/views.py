@@ -12,6 +12,7 @@ from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework_simplejwt.views import TokenObtainPairView
 
 from .models import (
+    BudgetPeriod,
     Category,
     Family,
     FamilyJoinRequest,
@@ -61,6 +62,72 @@ def advice_view(request):
         )
 
     return Response({"advice": advice}, status=status.HTTP_200_OK)
+
+
+@api_view(["GET", "POST"])
+@permission_classes([IsAuthenticated])
+def budget_view(request):
+    today = timezone.now().date()
+    start_of_week = today - timedelta(days=today.weekday())
+    end_of_week = start_of_week + timedelta(days=6)
+
+    def get_actual_spent():
+        return int(
+            Record.objects.filter(
+                user=request.user,
+                type=Record.Type.EXPENSE,
+                date__range=(start_of_week, end_of_week),
+            ).aggregate(total=Sum("amount"))["total"] or 0
+        )
+
+    def build_response(budget):
+        actual_spent = get_actual_spent()
+        percent_used = (
+            round(actual_spent / budget.limit_amount * 100, 1)
+            if budget.limit_amount
+            else 0
+        )
+        return Response({
+            "limit_amount": budget.limit_amount,
+            "actual_spent": actual_spent,
+            "percent_used": min(percent_used, 100),
+        })
+
+    if request.method == "GET":
+        budget = BudgetPeriod.objects.filter(
+            user=request.user,
+            start_date=start_of_week,
+            end_date=end_of_week,
+        ).first()
+        if not budget:
+            return Response({"limit_amount": None, "actual_spent": get_actual_spent(), "percent_used": 0})
+        return build_response(budget)
+
+    limit_amount = request.data.get("limit_amount")
+    try:
+        limit_amount = int(limit_amount)
+        if limit_amount <= 0:
+            raise ValueError
+    except (TypeError, ValueError):
+        return Response({"detail": "limit_amount must be a positive integer."}, status=status.HTTP_400_BAD_REQUEST)
+
+    budget_qs = BudgetPeriod.objects.filter(
+        user=request.user,
+        start_date=start_of_week,
+        end_date=end_of_week,
+    )
+    if budget_qs.exists():
+        budget_qs.update(limit_amount=limit_amount)
+        budget = budget_qs.first()
+    else:
+        budget = BudgetPeriod.objects.create(
+            user=request.user,
+            start_date=start_of_week,
+            end_date=end_of_week,
+            limit_amount=limit_amount,
+            actual_spent=0,
+        )
+    return build_response(budget)
 
 
 class CustomTokenObtainPairView(TokenObtainPairView):

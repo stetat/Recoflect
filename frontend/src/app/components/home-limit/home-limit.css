@@ -76,3 +76,79 @@
 .warn-text { color: #92400e; }
 .ok-text   { color: #065f46; }
 .save-text { color: #1e40af; }
+
+.bar-warn {
+  background: linear-gradient(90deg, #dc2626, #f87171);
+}
+
+.limit-no-limit {
+  font-size: 13px;
+  color: #94a3b8;
+  margin: 0;
+}
+
+.set-limit-btn {
+  align-self: flex-start;
+  background: none;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  padding: 5px 14px;
+  font-size: 13px;
+  font-weight: 500;
+  color: #475569;
+  cursor: pointer;
+  transition: border-color 0.2s, color 0.2s;
+}
+
+.set-limit-btn:hover {
+  border-color: #0f5ad1;
+  color: #0f5ad1;
+}
+
+.limit-form {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.limit-input {
+  flex: 1;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 7px 10px;
+  font-size: 14px;
+  color: #0f172a;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.limit-input:focus {
+  border-color: #0f5ad1;
+}
+
+.limit-input::-webkit-outer-spin-button,
+.limit-input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.limit-input[type=number] {
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+
+.save-btn {
+  background: #0f5ad1;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 7px 16px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s;
+  white-space: nowrap;
+}
+
+.save-btn:hover:not(:disabled) { background: #1a67d8; }
+.save-btn:disabled { opacity: 0.5; cursor: not-allowed; }
