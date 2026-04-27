@@ -154,7 +154,7 @@ class FamilyMemberSerializer(serializers.ModelSerializer):
         start_of_week, end_of_week = self._get_week_range()
         total = (
             Record.objects.filter(
-                category__user=obj,
+                user=obj,
                 type=record_type,
                 date__range=(start_of_week, end_of_week),
             ).aggregate(total=Sum("amount"))["total"]
